@@ -1,0 +1,1225 @@
+/* ==========================================================================
+   Cozy Cyber Village - Dreamy Starlight & Twilight Purple Pixel Aesthetics
+   Background: Pixel Twilight Sky with Lavender Clouds and Stars
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700;800&family=Nunito:wght@700;800;900&display=swap');
+
+:root {
+  --bg-night: #473880;
+  --bg-night-deep: #2e2353;
+  --bg-board: #fbf7ff;
+  --bg-tile-light: #ffffff;
+  --bg-tile-checkered: #f1e9fa;
+  
+  --purple-border: #382963;
+  --purple-dark: #271a47;
+  --purple-mid: #5b4796;
+  --purple-light: #8974c4;
+  --purple-cloud: #b39ddb;
+  --purple-soft: #ede7f6;
+
+  --star-gold: #ffea79;
+  --star-gold-deep: #f59e0b;
+  --star-cream: #fff9db;
+
+  --cream-card: rgba(254, 252, 255, 0.95);
+  --cream-card-soft: rgba(243, 235, 252, 0.92);
+
+  --color-peach: #f4a261;
+  --color-coral: #e76f51;
+  --color-butter: #ffea79;
+  --color-mint: #80cbc4;
+  --color-leaf: #388e3c;
+  --color-danger-snake: #e53935;
+  --color-safe-ladder: #2e7d32;
+
+  --font-main: 'Quicksand', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-fun: 'Nunito', 'Quicksand', cursive, sans-serif;
+
+  --shadow-soft: 0 8px 24px rgba(27, 18, 59, 0.4);
+  --bevel-btn: 0 4px 0 #382963;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-night);
+  background-image: url('./starry_sky.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: var(--purple-dark);
+  font-family: var(--font-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   Header & Starlight Banner
+   ========================================================================== */
+.village-header {
+  background: rgba(254, 252, 255, 0.94);
+  backdrop-filter: blur(10px);
+  border-bottom: 4px solid var(--purple-border);
+  padding: 0.65rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  box-shadow: 0 4px 20px rgba(27, 18, 59, 0.35);
+  position: relative;
+  z-index: 20;
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.scroll-banner {
+  background: #fdf5ff;
+  border: 3px solid var(--purple-border);
+  border-radius: 24px;
+  padding: 0.4rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  box-shadow: var(--bevel-btn);
+}
+
+.brand-icon {
+  font-size: 1.6rem;
+  filter: drop-shadow(0 2px 4px rgba(255, 234, 121, 0.8));
+}
+
+.brand-title {
+  font-family: var(--font-fun);
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: var(--purple-border);
+  letter-spacing: 0.5px;
+}
+
+.brand-title span {
+  color: #7b2cbf;
+  text-shadow: 0 1px 2px rgba(123, 44, 191, 0.2);
+}
+
+.brand-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  background: #f3e8ff;
+  color: #6b21a8;
+  border: 2px solid #9333ea;
+  padding: 0.15rem 0.6rem;
+  border-radius: 12px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+/* Starlight Dreamy Buttons */
+.btn-cozy {
+  background: #ffffff;
+  color: var(--purple-border);
+  border: 3px solid var(--purple-border);
+  border-radius: 18px;
+  padding: 0.45rem 0.95rem;
+  font-family: var(--font-fun);
+  font-size: 0.86rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  box-shadow: var(--bevel-btn);
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.btn-cozy:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 var(--purple-border);
+  background: #fbf8ff;
+}
+
+.btn-cozy:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--purple-border);
+}
+
+.btn-peach {
+  background: #ffb703;
+  color: #382963;
+}
+
+.btn-purple {
+  background: #9d4edd;
+  color: #ffffff;
+}
+
+.btn-reset {
+  background: #ffe3e3;
+  color: #c92a2a;
+  border-color: #382963;
+}
+.btn-reset:hover {
+  background: #ffc9c9;
+}
+
+/* ==========================================================================
+   Main Game Container
+   ========================================================================== */
+.village-container {
+  display: flex;
+  flex: 1;
+  padding: 1.25rem;
+  gap: 1.5rem;
+  max-width: 1650px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.board-viewport {
+  flex: 1 1 66%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.board-frame {
+  position: relative;
+  width: min(85vh, 760px);
+  height: min(85vh, 760px);
+  background: var(--bg-board);
+  border: 6px solid var(--purple-border);
+  border-radius: 24px;
+  box-shadow: 0 16px 45px rgba(18, 11, 40, 0.7), 0 0 35px rgba(179, 157, 219, 0.35);
+  padding: 6px;
+  overflow: hidden;
+}
+
+/* 10x10 Grid */
+.board-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid var(--purple-mid);
+}
+
+.board-tile {
+  position: relative;
+  background: var(--bg-tile-light);
+  border: 1px dashed rgba(93, 75, 153, 0.3);
+  padding: 3px 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.tile-checkered {
+  background: var(--bg-tile-checkered);
+}
+
+.tile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.tile-number {
+  font-family: var(--font-fun);
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--purple-mid);
+  line-height: 1;
+}
+
+.tile-badge {
+  font-size: 0.6rem;
+  font-weight: 800;
+  padding: 2px 4px;
+  border-radius: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 95%;
+  line-height: 1.15;
+  box-shadow: 0 2px 0 rgba(56, 41, 99, 0.25);
+}
+
+.jump-tag {
+  font-weight: 900;
+  margin-left: 2px;
+}
+
+/* Start Tile (1) */
+.tile-start {
+  background: #e0f2fe !important;
+  border-color: #0284c7;
+}
+.start-badge {
+  background: #bae6fd;
+  color: #0369a1;
+  border: 1.5px solid #0284c7;
+}
+
+/* Home Fortress Tile (100) */
+.tile-home {
+  background: #fef08a !important;
+  border-color: #eab308;
+  box-shadow: inset 0 0 15px rgba(250, 204, 21, 0.4);
+}
+.home-badge {
+  background: #fde047;
+  color: #854d0e;
+  border: 1.5px solid #ca8a04;
+}
+
+/* Defense Tiles */
+.tile-defense-start {
+  background: #e8f5e9 !important;
+  border-color: #4caf50;
+  cursor: pointer;
+}
+.tile-defense-start:hover {
+  background: #c8e6c9 !important;
+}
+.defense-badge {
+  background: #a5d6a7;
+  color: #1b5e20;
+  border: 1.5px solid #2e7d32;
+}
+
+/* Threat Tiles */
+.tile-threat-start {
+  background: #ffebee !important;
+  border-color: #ef5350;
+  cursor: pointer;
+}
+.tile-threat-start:hover {
+  background: #ffcdd2 !important;
+}
+.threat-badge {
+  background: #ef9a9a;
+  color: #b71c1c;
+  border: 1.5px solid #c62828;
+}
+
+/* Sub destination tags */
+.tile-subtag {
+  font-size: 0.52rem;
+  font-weight: 800;
+  opacity: 0.8;
+}
+.dest-defense-subtag { color: #2e7d32; }
+.dest-threat-subtag { color: #c62828; }
+
+/* SVG Conduits Layer */
+.board-conduits-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Pawns Layer */
+.pawns-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.cozy-pawn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 38px;
+  height: 38px;
+  margin-top: -19px;
+  margin-left: -19px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+}
+
+.pawn-bubble {
+  width: 28px;
+  height: 28px;
+  background: #ffffff;
+  border: 3px solid var(--player-color, var(--purple-border));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(35, 24, 65, 0.4);
+}
+
+.pawn-emoji {
+  font-size: 1.05rem;
+}
+
+.pawn-nametag {
+  font-size: 0.55rem;
+  font-weight: 900;
+  background: #ffffff;
+  color: var(--purple-dark);
+  border: 1.5px solid var(--player-color, var(--purple-border));
+  border-radius: 6px;
+  padding: 0 3px;
+  margin-top: 1px;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(35, 24, 65, 0.25);
+}
+
+/* Finished Pawn Medal Glow */
+.pawn-finished .pawn-bubble {
+  box-shadow: 0 0 14px #ffea79, 0 4px 10px rgba(35, 24, 65, 0.5);
+  border-color: #f59e0b;
+}
+
+/* ==========================================================================
+   Sidebar: Controls, Turn Cards & Village Log
+   ========================================================================== */
+.village-sidebar {
+  flex: 1 1 34%;
+  min-width: 340px;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cozy-card {
+  background: var(--cream-card);
+  backdrop-filter: blur(10px);
+  border: 4px solid var(--purple-border);
+  border-radius: 20px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: var(--shadow-soft), var(--bevel-btn);
+}
+
+.card-title {
+  font-family: var(--font-fun);
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: var(--purple-border);
+  border-bottom: 2px dashed rgba(91, 71, 150, 0.3);
+  padding-bottom: 0.35rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-banner {
+  background: var(--cream-card-soft);
+  border: 2px solid var(--purple-mid);
+  border-radius: 12px;
+  padding: 0.5rem 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--purple-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.active-badge-tag {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px currentColor;
+}
+
+/* Turn Card */
+.turn-card-active {
+  border: 3px solid var(--color-peach);
+  background: rgba(244, 162, 97, 0.18);
+  border-radius: 14px;
+  padding: 0.65rem 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.turn-avatar {
+  font-size: 1.8rem;
+  background: #fff;
+  border: 2px solid var(--purple-border);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 0 rgba(56, 41, 99, 0.25);
+}
+
+.turn-curr-name {
+  font-family: var(--font-fun);
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: var(--purple-border);
+}
+
+.turn-curr-sub {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--purple-mid);
+}
+
+/* Wooden Dice Module */
+.dice-module {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  background: var(--cream-card-soft);
+  padding: 0.85rem;
+  border-radius: 16px;
+  border: 2px solid var(--purple-mid);
+}
+
+.cyber-dice-container {
+  perspective: 600px;
+}
+
+.cyber-dice {
+  width: 65px;
+  height: 65px;
+  background: #ffffff;
+  border: 4px solid var(--purple-border);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 0 var(--purple-border);
+  transition: transform 0.25s ease;
+}
+
+.dice-val-display {
+  font-size: 2.2rem;
+  color: var(--purple-border);
+}
+
+.cyber-dice.rolling {
+  animation: diceRollWobble 0.35s infinite linear;
+}
+
+@keyframes diceRollWobble {
+  0% { transform: rotate(0deg) scale(1.08); }
+  25% { transform: rotate(15deg) scale(0.92); }
+  50% { transform: rotate(-18deg) scale(1.08); }
+  75% { transform: rotate(10deg) scale(0.95); }
+  100% { transform: rotate(0deg) scale(1.08); }
+}
+
+.dice-action-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.btn-roll {
+  background: #ffb703;
+  color: #382963;
+  border: 3px solid var(--purple-border);
+  padding: 0.75rem 1rem;
+  border-radius: 16px;
+  font-family: var(--font-fun);
+  font-weight: 900;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: var(--bevel-btn);
+  transition: all 0.15s ease;
+}
+
+.btn-roll:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 var(--purple-border);
+  background: #ffc324;
+}
+
+.btn-roll:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--purple-border);
+}
+
+.btn-roll:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: var(--bevel-btn);
+}
+
+.roll-shortcut-tip {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--purple-mid);
+  text-align: center;
+}
+
+.fair-play-badge {
+  margin-top: 0.35rem;
+  font-size: 0.69rem;
+  color: var(--purple-mid);
+  background: var(--cream-card-soft);
+  border: 1px dashed var(--purple-border);
+  padding: 4px 6px;
+  border-radius: 8px;
+  text-align: center;
+  line-height: 1.35;
+}
+
+.fair-play-badge strong {
+  color: #7b2cbf;
+}
+
+/* Multi-Player Roster List */
+.players-roster-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.player-roster-card {
+  background: #ffffff;
+  border: 2px solid var(--purple-border);
+  border-left-width: 6px;
+  border-radius: 12px;
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: 0 2px 0 rgba(56, 41, 99, 0.15);
+  transition: all 0.2s ease;
+}
+
+.active-roster-card {
+  background: #fbf8ff;
+  box-shadow: 0 4px 12px rgba(56, 41, 99, 0.25);
+  transform: translateX(4px);
+  border-color: #7b2cbf;
+}
+
+.roster-avatar-box {
+  width: 36px;
+  height: 36px;
+  border: 2px solid var(--purple-border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  background: #f8f3fe;
+}
+
+.roster-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.roster-name-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.roster-name {
+  font-family: var(--font-fun);
+  font-size: 0.88rem;
+  font-weight: 900;
+  color: var(--purple-border);
+}
+
+.roster-type-pill {
+  font-size: 0.65rem;
+  font-weight: 800;
+  background: var(--cream-card-soft);
+  color: var(--purple-mid);
+  border: 1px solid var(--purple-mid);
+  padding: 1px 6px;
+  border-radius: 8px;
+}
+
+.roster-pos-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.roster-tile-badge {
+  font-size: 0.72rem;
+  color: #fff;
+  padding: 1px 6px;
+  border-radius: 8px;
+  border: 1px solid var(--purple-border);
+}
+
+.roster-stats {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--purple-mid);
+}
+
+/* Activity Terminal */
+.log-terminal {
+  flex: 1;
+  background: #ffffff;
+  border: 2px solid var(--purple-mid);
+  border-radius: 12px;
+  padding: 0.65rem;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  overflow-y: auto;
+  max-height: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.log-terminal::-webkit-scrollbar {
+  width: 6px;
+}
+.log-terminal::-webkit-scrollbar-thumb {
+  background: var(--purple-light);
+  border-radius: 4px;
+}
+
+.log-entry {
+  display: block;
+}
+
+.log-time {
+  color: var(--purple-mid);
+  margin-right: 4px;
+  font-weight: 700;
+}
+
+.log-player {
+  color: #7b2cbf;
+  font-weight: 900;
+}
+
+.log-tag {
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 6px;
+  margin-right: 4px;
+  border: 1.5px solid var(--purple-border);
+}
+
+.tag-defense {
+  background: #c8e6c9;
+  color: #1b5e20;
+}
+
+.tag-threat {
+  background: #ffcdd2;
+  color: #b71c1c;
+}
+
+.system-log {
+  color: var(--purple-mid);
+  font-style: italic;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Modals & Cozy Dialogs
+   ========================================================================== */
+dialog {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: auto;
+  max-width: 90vw;
+  outline: none;
+}
+
+dialog::backdrop {
+  background-color: rgba(27, 18, 59, 0.7);
+  backdrop-filter: blur(5px);
+}
+
+.cozy-dialog-inner {
+  background: var(--cream-card);
+  border: 5px solid var(--purple-border);
+  border-radius: 24px;
+  width: min(650px, 92vw);
+  overflow: hidden;
+  box-shadow: 0 15px 45px rgba(27, 18, 59, 0.5), var(--bevel-btn);
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-banner {
+  padding: 0.65rem 1.25rem;
+  font-family: var(--font-fun);
+  font-size: 0.85rem;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.banner-threat {
+  background: #ffcdd2;
+  color: #b71c1c;
+  border-bottom: 3px solid var(--purple-border);
+}
+
+.banner-defense {
+  background: #c8e6c9;
+  color: #1b5e20;
+  border-bottom: 3px solid var(--purple-border);
+}
+
+.modal-content {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.modal-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.modal-title {
+  font-family: var(--font-fun);
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: var(--purple-border);
+  line-height: 1.25;
+}
+
+.modal-badge {
+  font-size: 0.75rem;
+  font-weight: 900;
+  padding: 0.25rem 0.6rem;
+  border-radius: 10px;
+  border: 2px solid var(--purple-border);
+  white-space: nowrap;
+}
+
+.modal-threat .modal-badge {
+  background: #ff8a80;
+  color: #b71c1c;
+}
+
+.modal-defense .modal-badge {
+  background: #a5d6a7;
+  color: #1b5e20;
+}
+
+.modal-framework {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #7b2cbf;
+}
+
+.modal-summary {
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.45;
+  background: var(--cream-card-soft);
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 2px dashed var(--purple-mid);
+}
+
+.modal-lore {
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--purple-mid);
+}
+
+.modal-tactical {
+  background: #ffffff;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  border: 2px solid var(--purple-mid);
+}
+
+.modal-footer {
+  padding: 0.85rem 1.25rem;
+  background: var(--cream-card-soft);
+  border-top: 3px solid var(--purple-border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.mitigation-sub {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.78rem;
+  color: var(--color-leaf);
+  font-weight: 800;
+}
+
+/* Victory Dialog */
+.victory-inner {
+  border: 5px solid var(--purple-border);
+  text-align: center;
+  padding: 2.25rem 1.5rem;
+  background: #fffdf5;
+}
+
+.victory-icon {
+  font-size: 4rem;
+  margin-bottom: 0.5rem;
+  filter: drop-shadow(0 4px 8px rgba(255, 234, 121, 0.7));
+}
+
+.victory-title {
+  font-family: var(--font-fun);
+  font-size: 1.85rem;
+  font-weight: 900;
+  color: #7b2cbf;
+  margin-bottom: 0.4rem;
+}
+
+.victory-subtitle {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--purple-mid);
+  margin-bottom: 1.25rem;
+}
+
+.victory-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat-pill {
+  background: #ffffff;
+  border: 2px solid var(--purple-border);
+  padding: 0.65rem 0.85rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Podium Standings */
+.podium-standings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin: 0.75rem 0;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.podium-item {
+  background: #ffffff;
+  border: 2px solid var(--purple-border);
+  border-radius: 14px;
+  padding: 0.65rem 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 3px 0 var(--purple-border);
+}
+
+.podium-item-rank-1 {
+  background: #fef08a;
+  border-color: #ca8a04;
+}
+.podium-item-rank-2 {
+  background: #f1f5f9;
+  border-color: #64748b;
+}
+.podium-item-rank-3 {
+  background: #fed7aa;
+  border-color: #ea580c;
+}
+.podium-item-active {
+  background: #faf5ff;
+  border-style: dashed;
+  border-color: #9333ea;
+  opacity: 0.9;
+}
+
+.podium-rank-badge {
+  font-size: 1.35rem;
+  margin-right: 0.4rem;
+}
+
+.podium-player-name {
+  font-family: var(--font-fun);
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: var(--purple-border);
+}
+
+.podium-player-sub {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--purple-mid);
+}
+
+.podium-meta-right {
+  font-family: var(--font-fun);
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #15803d;
+}
+
+/* Catalog Modal */
+.catalog-inner {
+  width: min(850px, 94vw);
+  max-height: 85vh;
+}
+
+.catalog-header {
+  padding: 1rem 1.25rem;
+  border-bottom: 3px solid var(--purple-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--cream-card-soft);
+}
+
+.catalog-body {
+  padding: 1.25rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.catalog-section-title {
+  font-family: var(--font-fun);
+  font-size: 1.1rem;
+  font-weight: 900;
+  margin-top: 0.5rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 2px dashed var(--purple-mid);
+}
+
+.title-defense { color: var(--color-leaf); }
+.title-threat { color: var(--color-danger-snake); }
+
+.catalog-item {
+  background: #ffffff;
+  border: 2px solid var(--purple-border);
+  border-radius: 12px;
+  padding: 0.85rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 3px 0 var(--purple-border);
+}
+
+.catalog-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 var(--purple-border);
+}
+
+.catalog-item-header {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-fun);
+  font-weight: 900;
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+}
+
+.catalog-jump {
+  font-size: 0.82rem;
+  color: #7b2cbf;
+}
+
+.catalog-framework {
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: var(--purple-mid);
+  margin-bottom: 0.35rem;
+}
+
+.catalog-desc {
+  font-size: 0.82rem;
+  color: var(--purple-dark);
+  line-height: 1.45;
+}
+
+/* ==========================================================================
+   Lobby Form: Multi-Player Configuration
+   ========================================================================== */
+.lobby-form {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.lobby-players-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.lobby-player-row {
+  background: #ffffff;
+  border: 2px solid var(--purple-border);
+  border-radius: 14px;
+  padding: 0.65rem 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  box-shadow: 0 2px 0 var(--purple-border);
+}
+
+.row-num {
+  font-family: var(--font-fun);
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: var(--purple-mid);
+  min-width: 24px;
+}
+
+.form-control {
+  background: #ffffff;
+  border: 2px solid var(--purple-mid);
+  color: var(--purple-dark);
+  padding: 0.45rem 0.65rem;
+  border-radius: 10px;
+  font-family: var(--font-main);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #9d4edd;
+  box-shadow: 0 0 0 3px rgba(157, 78, 221, 0.3);
+}
+
+.name-input {
+  flex: 1;
+}
+
+.type-select {
+  width: 145px;
+}
+
+.avatar-select {
+  width: 155px;
+}
+
+.btn-remove-row {
+  background: #ffebee;
+  color: #c62828;
+  border: 2px solid var(--purple-border);
+  border-radius: 8px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.btn-remove-row:hover {
+  background: #ffcdd2;
+}
+
+.add-player-btn-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.25rem;
+}
+
+/* Responsive Adaptations */
+@media (max-width: 1024px) {
+  .village-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .village-sidebar {
+    width: 100%;
+    max-width: 760px;
+  }
+  .board-frame {
+    width: min(92vw, 680px);
+    height: min(92vw, 680px);
+  }
+}
+
+@media (max-width: 600px) {
+  .board-frame {
+    width: 96vw;
+    height: 96vw;
+    padding: 3px;
+    border-width: 4px;
+  }
+  .tile-badge, .tile-subtag {
+    display: none;
+  }
+  .tile-number {
+    font-size: 0.68rem;
+  }
+  .lobby-player-row {
+    flex-wrap: wrap;
+  }
+  .name-input, .avatar-select, .type-select {
+    width: 100%;
+  }
+}

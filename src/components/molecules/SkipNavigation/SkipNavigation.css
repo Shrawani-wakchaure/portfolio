@@ -1,0 +1,17 @@
+@import "tailwindcss";
+@import "../../../styles/globals.css";
+
+.skip-navigation {
+    @apply fixed top-0 left-0 z-[9999] pointer-events-none;
+}
+
+.skip-navigation__link {
+    @apply inline-block px-6 py-4 bg-(--dark-800) text-(--gray-300) no-underline font-bold border-2 border-(--gray-300) -translate-y-[200%] opacity-0 pointer-events-none font-(--font-tiny);
+    transition-property: transform, opacity;
+    transition-duration: 200ms;
+    transition-timing-function: ease-in-out;
+}
+
+.skip-navigation__link:focus {
+    @apply translate-y-0 opacity-100 pointer-events-auto outline-4 outline-[--blue-700] -outline-offset-4;
+}

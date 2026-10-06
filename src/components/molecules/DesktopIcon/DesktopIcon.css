@@ -1,0 +1,47 @@
+@import "../../../styles/globals.css";
+
+
+
+.desktop-icon {
+
+  @apply absolute top-0 left-0 w-25 flex flex-col items-center cursor-default z-10 p-[var(--space-1)] bg-transparent border-none touch-none outline-none;
+
+}
+
+.desktop-icon:focus-visible {
+  @apply outline-2 outline-dotted outline-(--gray-300) bg-blue-900/50;
+}
+
+.desktop-icon--selected {
+  @apply z-20;
+}
+
+
+.desktop-icon--dragging {
+  @apply opacity-70 z-[100];
+}
+
+.desktop-icon__img-wrapper {
+  @apply relative w-16 h-16 mb-[var(--space-1)];
+}
+
+.desktop-icon__img {
+  @apply w-full h-full object-contain transition-[filter] duration-150 ease-out;
+}
+
+.desktop-icon--selected .desktop-icon__img {
+  @apply grayscale brightness-110 contrast-125;
+}
+
+.desktop-icon__label {
+  @apply text-center max-w-full;
+}
+
+.desktop-icon__text {
+
+  @apply font-(--font-tiny) text-(--gray-300) text-lg leading-tight px-[2px] border border-transparent line-clamp-2 overflow-hidden transition-colors duration-150 ease-out;
+}
+
+.desktop-icon--selected .desktop-icon__text {
+  @apply bg-(--dark-600) text-(--gray-300) border-[var(--border-thick)] border-dashed border-(--warm-300);
+}

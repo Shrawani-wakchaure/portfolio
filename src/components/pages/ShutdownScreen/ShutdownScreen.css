@@ -1,0 +1,27 @@
+@import "tailwindcss";
+@import "../../../styles/globals.css";
+
+.shutdown-screen {
+    @apply fixed top-0 left-0 w-full h-[100dvh] bg-(--dark-800) z-9999 flex items-center justify-center pb-[env(safe-area-inset-bottom)];
+}
+
+.shutdown-screen__content {
+    @apply flex flex-col items-center justify-center p-8 text-center max-w-lg;
+}
+
+.shutdown-screen__title {
+    @apply text-(--gray-300) font-bold text-3xl mb-8 tracking-widest uppercase font-(--font-tiny);
+}
+
+.shutdown-screen__message {
+    @apply text-(--gray-300) font-bold text-xl mb-6 font-(--font-tiny);
+}
+
+.shutdown-screen__button {
+    @apply border-2 border-(--gray-400) text-(--gray-400) px-6 py-2 bg-(--blue-500) uppercase font-bold text-lg tracking-wider transition-colors duration-200 border-(--gray-300) hover:text-(--gray-300) hover:bg-(--gray-800);
+}
+
+
+.shutdown-screen__hint {
+    @apply text-(--blue-500) text-lg mb-6 max-w-md leading-relaxed font-(--font-tiny);
+}

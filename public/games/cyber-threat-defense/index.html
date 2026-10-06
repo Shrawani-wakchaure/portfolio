@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cozy Cyber Village | Threat & Defense</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%3E<text y=%2226%22 font-size=%2224%22>🏡</text></svg>">
+</head>
+<body>
+
+  <!-- Top Wooden Village Header -->
+  <header class="village-header">
+    <div class="brand-section">
+      <div class="scroll-banner">
+        <span class="brand-icon">🏡</span>
+        <div>
+          <h1 class="brand-title">COZY CYBER <span>VILLAGE</span></h1>
+        </div>
+      </div>
+      <span class="brand-badge">✨ Network Safe</span>
+    </div>
+
+    <div class="header-actions">
+      <button id="headerResetBtn" class="btn-cozy btn-reset" title="Reset Current Game (R)">
+        🔄 <span class="btn-text">Reset</span>
+      </button>
+
+      <button id="headerStandingsBtn" class="btn-cozy" title="View Current Standings">
+        🏆 <span class="btn-text">Standings</span>
+      </button>
+
+      <button id="headerCatalogBtn" class="btn-cozy" title="Open Threat & Defense Storybook (C)">
+        📖 <span class="btn-text">Intel Book</span>
+      </button>
+
+      <button id="muteToggleBtn" class="btn-cozy" title="Toggle Sound FX (M)">
+        🔊 <span class="btn-text">Sound: ON</span>
+      </button>
+
+      <button id="headerPlayersBtn" class="btn-cozy btn-peach" title="Configure Players (P)">
+        🐾 <span class="btn-text">Players Setup</span>
+      </button>
+
+      <button id="headerExitBtn" class="btn-cozy btn-reset" style="background: #e63946; color: #fff;" title="Exit / Back to Console (ESC)" onclick="if (window.parent && window.parent !== window) { window.parent.postMessage({ type: 'CLOSE_COZY_GAME' }, '*'); } else { window.history.back(); }">
+        🚪 <span class="btn-text">Exit Game</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Grid & Control Room -->
+  <main class="village-container">
+    
+    <!-- Left: 100-Tile Cozy Parchment Board -->
+    <section class="board-viewport" aria-label="Cozy Cyber Village Board">
+      <div class="board-frame" id="boardFrame">
+        <!-- 100 Checkered Tiles -->
+        <div class="board-grid" id="boardGrid"></div>
+
+        <!-- Real Illustrated SVG Snakes & Wooden Ladders -->
+        <svg class="board-conduits-svg" id="boardSvg" aria-hidden="true"></svg>
+
+        <!-- Cute Animal Pawns Layer -->
+        <div class="pawns-layer" id="pawnsLayer" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- Right: Village Telemetry & Roster Console -->
+    <aside class="village-sidebar" aria-label="Game Controls and Roster">
+      
+      <!-- Current Turn & Village Status -->
+      <div class="cozy-card">
+        <div class="card-title">
+          <span>🎯 Destination: Fortress 100</span>
+          <span style="font-size: 0.74rem; color: var(--color-leaf);">🌱 Live Village</span>
+        </div>
+        <div class="status-banner" id="statusBanner">
+          <span class="active-badge-tag" style="background:#e07a5f;"></span>
+          INITIALIZING VILLAGE...
+        </div>
+        <div id="turnIndicator"></div>
+      </div>
+
+      <!-- Wooden Dice & Roll Module -->
+      <div class="cozy-card">
+        <div class="card-title">
+          <span>🎲 Wooden Dice Roller</span>
+          <div style="display: flex; align-items: center; gap: 0.4rem;">
+            <label for="speedSelect" style="font-size: 0.72rem; color: var(--timber-light);">Speed:</label>
+            <select id="speedSelect" class="form-control" style="padding: 2px 6px; font-size: 0.74rem; height: auto;">
+              <option value="normal" selected>Normal</option>
+              <option value="fast">Fast</option>
+              <option value="instant">Instant</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="dice-module">
+          <div class="cyber-dice-container">
+            <div class="cyber-dice" id="cyberDice" data-val="1">
+              <span class="dice-val-display" id="diceValue">⚄</span>
+            </div>
+          </div>
+
+          <div class="dice-action-area">
+            <button id="rollDiceBtn" class="btn-roll">
+              <span class="dice-btn-label">ROLL DICE [SPACE]</span>
+            </button>
+            <div class="roll-shortcut-tip">Press SPACEBAR to roll or continue</div>
+            <div class="fair-play-badge" title="Cryptographically secure hardware randomness via Web Crypto API & OS kernel entropy (/dev/urandom). Strict 1-roll alternating turns.">
+              <span>🛡️ <strong>Fair Play Certified:</strong> 100% CSPRNG Random • 1 Roll/Turn</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Multi-Player Roster Overview (2 to 4 Players) -->
+      <div class="cozy-card">
+        <div class="card-title">
+          <span>🐾 Village Adventurers</span>
+          <div style="display:flex; gap:0.4rem;">
+            <button type="button" id="sidebarResetBtn" class="btn-cozy btn-reset" style="padding: 2px 8px; font-size: 0.72rem;" title="Reset Game (R)">
+              🔄 Reset
+            </button>
+            <button type="button" class="btn-cozy" onclick="window.gameInstance.openModal(window.gameInstance.settingsModal)" style="padding: 2px 8px; font-size: 0.72rem;">
+              🐾 Setup
+            </button>
+          </div>
+        </div>
+        <div class="players-roster-list" id="playersList"></div>
+      </div>
+
+      <!-- Village Activity Log -->
+      <div class="cozy-card" style="flex: 1; min-height: 200px;">
+        <div class="card-title">
+          <span>📜 Village Notice Board</span>
+          <span style="font-size: 0.72rem; color: var(--color-leaf);">● LIVE</span>
+        </div>
+        <div class="log-terminal" id="activityLog" role="log" aria-live="polite"></div>
+      </div>
+
+    </aside>
+
+  </main>
+
+  <!-- ========================================================================
+       MODAL: Multi-Player Setup & Lobby (Add/Remove Players, Human or AI)
+       ======================================================================== -->
+  <dialog id="settingsModal" class="cozy-modal" closedby="any" aria-labelledby="settingsTitle">
+    <div class="cozy-dialog-inner" style="width: min(720px, 94vw);">
+      <div class="catalog-header">
+        <h2 id="settingsTitle" style="font-family: var(--font-fun); font-size: 1.25rem; color: var(--timber-dark);">
+          🐾 Adventurers Setup (Play with Friends or Computer!)
+        </h2>
+        <button class="btn-cozy" data-close-modal style="padding: 2px 8px;">✕</button>
+      </div>
+
+      <div class="lobby-form">
+        <p style="font-size: 0.86rem; color: var(--timber-mid); font-weight: 700;">
+          Add 2 to 4 players. You can mix & match human friends with computer AI bots!
+        </p>
+
+        <!-- Player Rows Container -->
+        <div class="lobby-players-container" id="lobbyPlayersRows"></div>
+
+        <div class="add-player-btn-wrap">
+          <button type="button" id="addPlayerRowBtn" class="btn-cozy btn-sage">
+            + Add Another Player
+          </button>
+        </div>
+
+        <div class="modal-footer" style="padding: 0; background: transparent; border: none; margin-top: 0.5rem;">
+          <button type="button" id="startConfiguredGameBtn" class="btn-cozy btn-roll" style="width: 100%;">
+            🚀 START VILLAGE ADVENTURE
+          </button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ========================================================================
+       MODAL: Dynamic Incident Response / Defense Lore Alert
+       ======================================================================== -->
+  <dialog id="eventModal" class="cozy-modal" closedby="any" aria-labelledby="eventTitle">
+    <div class="cozy-dialog-inner">
+      <div class="modal-banner" id="modalTypeBanner">VILLAGE EVENT</div>
+      
+      <div class="modal-content">
+        <div class="modal-header-row">
+          <div>
+            <h2 class="modal-title" id="eventTitle">Event Title</h2>
+            <div class="modal-framework" id="eventFramework">MITRE ATT&CK / NIST CSF</div>
+          </div>
+          <span class="modal-badge" id="eventBadge">THREAT</span>
+        </div>
+
+        <div class="modal-summary" id="eventSummary">Event summary...</div>
+        <div class="modal-lore" id="eventLore">Cybersecurity concept explanation...</div>
+        <div class="modal-tactical" id="eventTactical">Tactical impact...</div>
+      </div>
+
+      <div class="modal-footer">
+        <button id="eventProceedBtn" class="btn-cozy btn-roll" data-close-modal style="width: 100%;">
+          CONTINUE ADVENTURE [SPACE]
+        </button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ========================================================================
+       MODAL: Player Finished Milestone (Race Continues for Others)
+       ======================================================================== -->
+  <dialog id="rankModal" class="cozy-modal" closedby="any" aria-labelledby="rankTitle">
+    <div class="cozy-dialog-inner victory-inner" style="background:#fffcf5;">
+      <div class="victory-icon" id="rankMedalIcon">🥇</div>
+      <h2 class="victory-title" id="rankTitle">DETECTIVE BARK FINISHED!</h2>
+      <p class="victory-subtitle" id="rankSubtitle">Secured 1st Place! The adventure continues for remaining racers!</p>
+
+      <div class="podium-standings-list" id="rankStandingsList"></div>
+
+      <div style="display: flex; gap: 0.75rem; justify-content: center; margin-top: 1.25rem;">
+        <button id="rankContinueBtn" class="btn-cozy btn-roll" data-close-modal style="min-width: 240px;">
+          CONTINUE RACE FOR OTHERS [SPACE]
+        </button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ========================================================================
+       MODAL: Final Grand Podium (All Players Ranked)
+       ======================================================================== -->
+  <dialog id="victoryModal" class="cozy-modal" closedby="any" aria-labelledby="victoryTitle">
+    <div class="cozy-dialog-inner victory-inner">
+      <div class="victory-icon">🏆</div>
+      <h2 class="victory-title" id="victoryWinnerBanner">VILLAGE ADVENTURE FINISHED!</h2>
+      <p class="victory-subtitle" id="victorySubtitle">All adventurers have reached the Cyber Fortress Treehouse!</p>
+
+      <div class="podium-standings-list" id="victoryPodiumList"></div>
+
+      <div class="victory-stats-grid" id="victoryStats" style="margin-top: 1rem;"></div>
+
+      <div style="display: flex; gap: 0.75rem; justify-content: center; margin-top: 1.25rem;">
+        <button class="btn-cozy btn-roll" data-close-modal onclick="window.gameInstance.openModal(window.gameInstance.settingsModal)">
+          PLAY AGAIN WITH FRIENDS
+        </button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ========================================================================
+       MODAL: Threat Intel & Defense Catalog
+       ======================================================================== -->
+  <dialog id="catalogModal" class="cozy-modal" closedby="any" aria-labelledby="catalogTitle">
+    <div class="cozy-dialog-inner catalog-inner">
+      <div class="catalog-header">
+        <h2 id="catalogTitle" style="font-family: var(--font-fun); font-size: 1.15rem; color: var(--timber-dark);">
+          📖 VILLAGE CYBER THREAT & DEFENSE STORYBOOK
+        </h2>
+        <button class="btn-cozy" data-close-modal style="padding: 2px 8px;">✕</button>
+      </div>
+      <div class="catalog-body" id="catalogList"></div>
+    </div>
+  </dialog>
+
+  <!-- Scripts -->
+  <script src="./engine.js"></script>
+  <script src="./audio.js"></script>
+  <script src="./board.js"></script>
+  <script src="./game.js"></script>
+  <script>
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (window.parent && window.parent !== window) {
+          window.parent.postMessage({ type: 'CLOSE_COZY_GAME' }, '*');
+        }
+      }
+    });
+  </script>
+</body>
+</html>

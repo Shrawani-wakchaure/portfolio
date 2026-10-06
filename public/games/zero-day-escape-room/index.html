@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Zero-Day Escape Room // Vintage Cold Case Archive</title>
+  
+  <!-- Vintage Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./static/css/desk.css">
+  <link rel="stylesheet" href="./static/css/casefile.css">
+  <link rel="stylesheet" href="./static/css/stamps.css">
+  <link rel="stylesheet" href="./static/css/puzzles.css">
+</head>
+<body>
+  <!-- Ambient Desk Lamp Glow -->
+  <div class="desk-lamp-glow"></div>
+
+  <!-- Notification Banner (Positioned cleanly below header) -->
+  <div id="desk-notification-banner" class="desk-notification-banner"></div>
+
+  <!-- Desk Top Bar / Controls -->
+  <header class="desk-top-bar">
+    <div class="desk-brand">
+      <img src="./static/img/agency_seal.svg" alt="Agency Seal" class="badge-icon" />
+      <div class="desk-title">
+        <h1>The Zero-Day Escape Room</h1>
+        <div class="sub-title">COLD CASE ARCHIVE // FORENSIC INCIDENT COMMAND</div>
+      </div>
+    </div>
+
+    <!-- Desk Chronometer Countdown (Visible during active investigation) -->
+    <div id="chronometer-wrapper" class="chronometer-container" style="display:none;">
+      <div class="chronometer-label">
+        <span>SYSTEM INTEGRITY</span>
+        <span id="chronometer-status" class="status-pill">COUNTDOWN ACTIVE</span>
+      </div>
+      <div class="chronometer-display">
+        <span id="chronometer-digits" class="chronometer-digits">20:00</span>
+      </div>
+    </div>
+
+    <!-- Desk Action Buttons -->
+    <div class="desk-actions">
+      <button id="btn-magnifier-prop" class="brass-btn" title="Toggle Magnifying Glass Inspection Mode">
+        🔍 INSPECT LOGS
+      </button>
+      <button id="btn-show-dashboard" class="brass-btn" title="Open Case Directory / Switch Escape Room">
+        🗄️ ARCHIVE DASHBOARD
+      </button>
+      <button id="btn-toggle-audio" class="brass-btn audio-btn" title="Toggle Vintage Sound FX">
+        🔊 AUDIO: ACTIVE
+      </button>
+      <a href="./certificate.html" class="brass-btn" style="text-decoration:none;" title="View Case Resolution Certificate">
+        📜 CERTIFICATE
+      </a>
+      <button id="btn-reset-game" class="brass-btn red-alert" title="Restart Current Case">
+        🔄 RESET CASE
+      </button>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       1. INTRO DASHBOARD: ESCAPE ROOM DIRECTORY & DOSSIER SELECTION
+       ======================================================================== -->
+  <section id="intro-dashboard-view" class="intro-dashboard-container" style="">
+    <!-- Investigator ID Card -->
+    <div class="investigator-card">
+      <div class="investigator-info">
+        <img src="./static/img/agency_seal.svg" alt="Forensics Badge" />
+        <div>
+          <div style="font-size:0.75rem; letter-spacing:1.5px; color:#785834; font-weight:bold;">
+            DIGITAL FORENSICS & INCIDENT RESPONSE COMMAND
+          </div>
+          <div style="font-family:var(--font-serif); font-size:1.35rem; font-weight:900; color:#211812;">
+            INVESTIGATOR PROFILE // ACTIVE SESSION
+          </div>
+          <div style="font-size:0.75rem; color:#4a3c28;">
+            CLEARANCE: LEVEL 5 TOP SECRET // CYBER DEFENSE DIRECTIVE
+          </div>
+        </div>
+      </div>
+
+      <div class="callsign-input-box">
+        <label for="dashboard-investigator-name" style="font-size:0.78rem; font-weight:bold; color:#4a3927;">INVESTIGATOR CALLSIGN:</label>
+        <input type="text" id="dashboard-investigator-name" class="typewriter-input" value="Special Agent S.A." placeholder="e.g. Agent S.A." style="width:180px; font-weight:bold;" />
+      </div>
+    </div>
+
+    <!-- Dashboard Header -->
+    <div class="dashboard-heading">
+      <h2>SELECT AN UNRESOLVED CASE FILE (ESCAPE ROOM)</h2>
+      <span>CHOOSE AN INCIDENT DOSSIER TO BEGIN INVESTIGATION</span>
+    </div>
+
+    <!-- Escape Room Dossier Cards -->
+    <div class="dossier-grid">
+      
+      <div class="dossier-card active-selected">
+        <div class="dossier-tab-top">
+          CASE-87-0300Z
+        </div>
+
+        <div class="dossier-header">
+          <div class="dossier-code">CLASSICAL FORENSICS ★</div>
+          <div class="dossier-title">OPERATION COLD BREACH</div>
+          <div class="dossier-meta">
+            <strong>LOCATION:</strong> Host: cloud-archive-node-09.internal<br/>
+            <strong>INCIDENT TIME:</strong> 03:00:14 UTC
+          </div>
+        </div>
+
+        <div class="dossier-body">
+          <div style="margin-bottom:8px; font-weight:bold; color:#702b22; font-size:0.75rem; letter-spacing:1px;">
+            THREAT: Cloud Perimeter Penetration & Host Command Injection
+          </div>
+          <p>At 03:00 AM UTC, perimeter intrusion alarms on cloud server node archive-node-09 went dead. The intruder probed administrative directories, bypassed an unhardened IAM policy, initiated a covert encrypted tunnel, and weaponized a utility healthcheck script with command injection. Inspect the evidence, isolate the IP, remediate permissions, decode the tunnel, and patch the zero-day to lock out the adversary.</p>
+        </div>
+
+        <div class="dossier-rooms-preview">
+          <div style="font-weight:bold; color:#5c4731; font-size:0.72rem; letter-spacing:1px; margin-bottom:2px;">
+            INCLUDED FORENSIC PUZZLE ROOMS:
+          </div>
+          <div class="preview-step"><span>1.</span> 🔍 Forensic Log Analyzer & Quarantine</div>
+          <div class="preview-step"><span>2.</span> 🛡️ Cloud / Authorization Policy Hardening</div>
+          <div class="preview-step"><span>3.</span> ⚙️ Cryptographic Tunnel Handshake</div>
+          <div class="preview-step"><span>4.</span> 💻 Zero-Day Exploit Regression & Code Patch</div>
+        </div>
+
+        <button class="brass-btn highlight btn-select-case" data-case-id="operation_cold_breach">
+          📂 UNSEAL CASE FILE & BEGIN
+        </button>
+      </div>
+      
+      <div class="dossier-card ">
+        <div class="dossier-tab-top">
+          CASE-87-0415X
+        </div>
+
+        <div class="dossier-header">
+          <div class="dossier-code">CRITICAL INFRASTRUCTURE ★★</div>
+          <div class="dossier-title">THE PHANTOM CIPHER</div>
+          <div class="dossier-meta">
+            <strong>LOCATION:</strong> SCADA Host: scada-plc-04.watergrid.internal<br/>
+            <strong>INCIDENT TIME:</strong> 04:15:22 UTC
+          </div>
+        </div>
+
+        <div class="dossier-body">
+          <div style="margin-bottom:8px; font-weight:bold; color:#702b22; font-size:0.75rem; letter-spacing:1px;">
+            THREAT: Industrial SCADA Traversal & Algorithm Downgrade Attack
+          </div>
+          <p>At 04:15 AM UTC, industrial telemetry on municipal water pipeline controller scada-plc-04 registered unauthenticated coil override packets. The adversary utilized a rogue industrial gateway, forged an unsigned JWT token, established a legacy weak cipher tunnel, and attempted SQL injection against valve state logs. Your mission: trace the flow log, enforce JWT signature verification, reconstruct modern authenticated encryption, and patch the SQL injection.</p>
+        </div>
+
+        <div class="dossier-rooms-preview">
+          <div style="font-weight:bold; color:#5c4731; font-size:0.72rem; letter-spacing:1px; margin-bottom:2px;">
+            INCLUDED FORENSIC PUZZLE ROOMS:
+          </div>
+          <div class="preview-step"><span>1.</span> 🔍 Forensic Log Analyzer & Quarantine</div>
+          <div class="preview-step"><span>2.</span> 🛡️ Cloud / Authorization Policy Hardening</div>
+          <div class="preview-step"><span>3.</span> ⚙️ Cryptographic Tunnel Handshake</div>
+          <div class="preview-step"><span>4.</span> 💻 Zero-Day Exploit Regression & Code Patch</div>
+        </div>
+
+        <button class="brass-btn highlight btn-select-case" data-case-id="phantom_cipher">
+          📂 UNSEAL CASE FILE & BEGIN
+        </button>
+      </div>
+      
+      <div class="dossier-card ">
+        <div class="dossier-tab-top">
+          CASE-87-0120B
+        </div>
+
+        <div class="dossier-header">
+          <div class="dossier-code">ADVANCED ZERO-DAY ★★★</div>
+          <div class="dossier-title">BLACK ICE INCIDENT</div>
+          <div class="dossier-meta">
+            <strong>LOCATION:</strong> Vault Node: vault-db-master.fincorp.internal<br/>
+            <strong>INCIDENT TIME:</strong> 01:20:05 UTC
+          </div>
+        </div>
+
+        <div class="dossier-body">
+          <div style="margin-bottom:8px; font-weight:bold; color:#702b22; font-size:0.75rem; letter-spacing:1px;">
+            THREAT: Financial Mainframe Exfiltration & Deserialization RCE
+          </div>
+          <p>At 01:20 AM UTC, data loss prevention sensors detected massive ledger exfiltration from database cluster vault-db-master. The attacker probed payment endpoints using blind time-based SQL injection, abused an unrestricted superuser database role, initiated a covert channel, and deployed an untrusted Python pickle deserialization payload. Isolate the intruder, restrict database roles, harden key custody, and patch the deserialization zero-day.</p>
+        </div>
+
+        <div class="dossier-rooms-preview">
+          <div style="font-weight:bold; color:#5c4731; font-size:0.72rem; letter-spacing:1px; margin-bottom:2px;">
+            INCLUDED FORENSIC PUZZLE ROOMS:
+          </div>
+          <div class="preview-step"><span>1.</span> 🔍 Forensic Log Analyzer & Quarantine</div>
+          <div class="preview-step"><span>2.</span> 🛡️ Cloud / Authorization Policy Hardening</div>
+          <div class="preview-step"><span>3.</span> ⚙️ Cryptographic Tunnel Handshake</div>
+          <div class="preview-step"><span>4.</span> 💻 Zero-Day Exploit Regression & Code Patch</div>
+        </div>
+
+        <button class="brass-btn highlight btn-select-case" data-case-id="black_ice">
+          📂 UNSEAL CASE FILE & BEGIN
+        </button>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       2. ACTIVE GAME CASE FILE: THE DETECTIVE DESK WORKSPACE
+       ======================================================================== -->
+  <main id="active-game-view" class="desk-workspace" style="display:none;">
+    <!-- Manila Case Folder Envelope -->
+    <div class="manila-case-folder">
+      <!-- Perfectly Synchronized Folder Tabs Bar -->
+      <nav class="case-folder-tabs" aria-label="Evidence Files">
+        <button class="folder-tab active" data-room="evidence_01">
+          <span class="tab-status-icon">📂</span>
+          <span class="tab-label">[001-LOG] Log Analyzer</span>
+        </button>
+        <button class="folder-tab locked" data-room="evidence_02">
+          <span class="tab-status-icon">🔒</span>
+          <span class="tab-label">[002-POL] Security Policy</span>
+        </button>
+        <button class="folder-tab locked" data-room="evidence_03">
+          <span class="tab-status-icon">🔒</span>
+          <span class="tab-label">[003-NET] Crypto Blueprint</span>
+        </button>
+        <button class="folder-tab locked" data-room="evidence_04">
+          <span class="tab-status-icon">🔒</span>
+          <span class="tab-label">[004-CODE] Zero-Day Patch</span>
+        </button>
+      </nav>
+
+      <!-- Parchment Case File Document (With safe margins & clear polaroid) -->
+      <article class="parchment-casefile">
+        <!-- Pinned Polaroid Scene at Top Left (Safely clear of the tabs!) -->
+        <div class="pinned-polaroid-container">
+          <img src="./static/img/binder_clip.svg" alt="Binder Clip" class="polaroid-binder-clip" />
+          <img src="./static/img/polaroid_scene.svg" alt="Breach Scene Polaroid" class="polaroid-img-frame" />
+        </div>
+
+        <!-- Case File Header -->
+        <header class="casefile-header">
+          <div class="casefile-title-area">
+            <div class="casefile-classification-bar">
+              TOP SECRET // CYBER FORENSICS ARCHIVE
+            </div>
+            <div class="casefile-main-title">
+              CASE FILE: OPERATION COLD BREACH
+            </div>
+            <div class="casefile-sub-heading">
+              RECOVERED FORENSICS EVIDENCE // UNRESOLVED INCIDENT
+            </div>
+          </div>
+
+          <!-- Official Archive Number Box -->
+          <div class="archive-number-box">
+            <div class="archive-label">ARCHIVE NO.</div>
+            <div class="archive-code">CASE-87-0300Z</div>
+          </div>
+        </header>
+
+        <!-- Incident Metadata Grid -->
+        <div class="incident-meta-grid">
+          <span class="meta-label">SUBJECT:</span>
+          <span class="meta-value">Cloud Perimeter Penetration & Host Command Injection</span>
+
+          <span class="meta-label">LOCATION:</span>
+          <span class="meta-value">Host: cloud-archive-node-09.internal</span>
+
+          <span class="meta-label">DATE OF INCIDENT:</span>
+          <span class="meta-value">October 12, 1987 // 03:00:14 UTC</span>
+
+          <span class="meta-label">INVESTIGATOR:</span>
+          <span id="label-active-investigator" class="meta-value">Special Agent S.A.</span>
+        </div>
+
+        <!-- Dynamic Evidence Room Views -->
+        <div class="casefile-body-content">
+          <!-- EVIDENCE 01: THE LOG ANALYZER (FORENSICS) -->
+<div id="view-evidence_01" class="evidence-room-view">
+  <div class="evidence-objective-banner">
+    <div class="objective-tag">FORENSIC OBJECTIVE // STEP 1 OF 4</div>
+    <div class="objective-desc">
+      Inspect the raw server access log lines. Detect the rogue IP conducting unauthorized administrative reconnaissance and directory traversal, then stamp and isolate it.
+    </div>
+  </div>
+
+  <div class="log-analyzer-sheet">
+    <div class="log-toolbar">
+      <div class="log-filter-box">
+        <label for="log-search-filter" style="font-size:0.75rem; font-weight:bold; color:#5c4731;">FILTER LOG ARCHIVE:</label>
+        <input type="text" id="log-search-filter" class="typewriter-input" placeholder="Filter IP, endpoint, status..." />
+      </div>
+      <div style="font-size:0.75rem; color:#78644e; font-style:italic;">
+        Click any log row to select it for firewall quarantine.
+      </div>
+    </div>
+
+    <div class="log-table-container">
+      <table class="log-table">
+        <thead>
+          <tr>
+            <th>TIME (UTC)</th>
+            <th>SOURCE IP</th>
+            <th>METHOD / PROTOCOL</th>
+            <th>TARGET ENDPOINT / PATH</th>
+            <th>STATUS</th>
+            <th>BYTES</th>
+            <th>USER-AGENT / CLIENT</th>
+            <th>FORENSIC NOTE</th>
+          </tr>
+        </thead>
+        <tbody id="log-table-body">
+          
+          <tr class="log-row" data-id="1" data-ip="10.0.1.15">
+            <td><strong>03:11:02</strong></td>
+            <td><code>10.0.1.15</code></td>
+            <td><strong>GET</strong></td>
+            <td><code>/healthcheck</code></td>
+            <td>
+              <span class="status-badge status-200">200</span>
+            </td>
+            <td>24</td>
+            <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;">AWS-Route53-HealthCheck/1.0</td>
+            <td style="font-size:0.75rem; color:#6b5847;">Internal Cloud Watcher</td>
+          </tr>
+          
+          <tr class="log-row" data-id="2" data-ip="198.51.100.12">
+            <td><strong>03:12:18</strong></td>
+            <td><code>198.51.100.12</code></td>
+            <td><strong>GET</strong></td>
+            <td><code>/robots.txt</code></td>
+            <td>
+              <span class="status-badge status-200">200</span>
+            </td>
+            <td>145</td>
+            <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;">Mozilla/5.0 (compatible; Googlebot/2.1)</td>
+            <td style="font-size:0.75rem; color:#6b5847;">Known Search Indexer</td>
+          </tr>
+          
+          <tr class="log-row" data-id="3" data-ip="192.0.2.45">
+            <td><strong>03:13:45</strong></td>
+            <td><code>192.0.2.45</code></td>
+            <td><strong>GET</strong></td>
+            <td><code>/admin/config.php?cmd=cat+/etc/passwd</code></td>
+            <td>
+              <span class="status-badge status-401">401</span>
+            </td>
+            <td>412</td>
+            <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;">Mozilla/5.0 (X11; Linux x86_64) Kali/2023.4</td>
+            <td style="font-size:0.75rem; color:#6b5847;">Directory Traversal Probe</td>
+          </tr>
+          
+          <tr class="log-row" data-id="4" data-ip="192.0.2.45">
+            <td><strong>03:14:01</strong></td>
+            <td><code>192.0.2.45</code></td>
+            <td><strong>POST</strong></td>
+            <td><code>/admin/config.php</code></td>
+            <td>
+              <span class="status-badge status-200">200</span>
+            </td>
+            <td>4820</td>
+            <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;">python-requests/2.31.0</td>
+            <td style="font-size:0.75rem; color:#6b5847;">Unauthorized Admin Config Bypass</td>
+          </tr>
+          
+          <tr class="log-row" data-id="5" data-ip="172.16.4.2">
+            <td><strong>03:14:22</strong></td>
+            <td><code>172.16.4.2</code></td>
+            <td><strong>GET</strong></td>
+            <td><code>/assets/main.css</code></td>
+            <td>
+              <span class="status-badge status-200">200</span>
+            </td>
+            <td>14200</td>
+            <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)</td>
+            <td style="font-size:0.75rem; color:#6b5847;">Office Subnet Staff</td>
+          </tr>
+          
+          <tr class="log-row" data-id="6" data-ip="10.0.1.88">
+            <td><strong>03:14:59</strong></td>
+            <td><code>10.0.1.88</code></td>
+            <td><strong>POST</strong></td>
+            <td><code>/api/telemetry/heartbeat</code></td>
+            <td>
+              <span class="status-badge status-204">204</span>
+            </td>
+            <td>0</td>
+            <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;">InternalServiceAgent/2.4</td>
+            <td style="font-size:0.75rem; color:#6b5847;">Fleet Telemetry</td>
+          </tr>
+          
+          <tr class="log-row" data-id="7" data-ip="203.0.113.88">
+            <td><strong>03:15:10</strong></td>
+            <td><code>203.0.113.88</code></td>
+            <td><strong>GET</strong></td>
+            <td><code>/index.html</code></td>
+            <td>
+              <span class="status-badge status-200">200</span>
+            </td>
+            <td>3520</td>
+            <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;">Mozilla/5.0 (iPhone; CPU iPhone OS 17_1)</td>
+            <td style="font-size:0.75rem; color:#6b5847;">External Public Visitor</td>
+          </tr>
+          
+          <tr class="log-row" data-id="8" data-ip="10.0.1.15">
+            <td><strong>03:15:44</strong></td>
+            <td><code>10.0.1.15</code></td>
+            <td><strong>GET</strong></td>
+            <td><code>/healthcheck</code></td>
+            <td>
+              <span class="status-badge status-200">200</span>
+            </td>
+            <td>24</td>
+            <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;">AWS-Route53-HealthCheck/1.0</td>
+            <td style="font-size:0.75rem; color:#6b5847;">Internal Cloud Watcher</td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+
+    <div class="log-isolate-bar">
+      <div class="log-selection-info">
+        <span>TARGET FOR FIREWALL QUARANTINE:</span>
+        <input type="text" id="isolate-target-ip" class="typewriter-input" placeholder="Select or type IP..." style="width:160px; margin-left:8px; font-weight:bold; color:#a8241c;" />
+      </div>
+      <button id="btn-isolate-ip" class="brass-btn red-alert" style="position:relative; z-index:10;">
+        <span>ISOLATE & QUARANTINE IP</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Dedicated Status & Endorsement Footer (No overlapping!) -->
+  <div class="evidence-status-footer">
+    <div class="evidence-dispatch-notes">
+      <div class="section-divider" style="margin-top:0;">
+        <div class="section-divider-title">INVESTIGATOR CLUES & DISPATCH</div>
+        <div class="section-divider-line"></div>
+      </div>
+      <p style="font-size:0.84rem; line-height:1.6; color:#40352b;">
+        Inspect the access log lines for reconnaissance probes, unauthenticated traversal attempts, or anomalous payloads. Select the perpetrator's origin IP to engage emergency perimeter quarantine.
+      </p>
+    </div>
+
+    <div class="evidence-stamp-slot">
+      <div id="stamp-box-evidence_01" class="stamp-slot">
+        
+        <div class="rubber-stamp stamp-red stamp-angle-left">
+          UNRESOLVED BREACH
+          <span class="stamp-subtext">QUARANTINE REQUIRED</span>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+          <!-- EVIDENCE 02: THE SECURITY POLICY (CLOUD / IAM / AUTH) -->
+<div id="view-evidence_02" class="evidence-room-view" style="display:none;">
+  <div class="evidence-objective-banner">
+    <div class="objective-tag">SECURITY POLICY OBJECTIVE // STEP 2 OF 4</div>
+    <div class="objective-desc">
+      The attacker utilized an overly permissive cloud IAM policy. Edit the policy on the memorandum to implement Least Privilege (NIST 800-53 / CIS Benchmark). Restrict Principal, Action, and Resource.
+    </div>
+  </div>
+
+  <div class="iam-memo-wrapper">
+    <!-- Pinned metallic paperclip -->
+    <img src="./static/img/paperclip.svg" alt="Paperclip" class="memo-paperclip" />
+
+    <div style="font-size:0.75rem; color:#785f46; letter-spacing:1px; margin-bottom:8px; font-weight:bold;">
+      MEMORANDUM // FROM: OFFICE OF CYBERSECURITY COMPLIANCE
+    </div>
+
+    <div class="memo-audit-alert">
+      <strong>⚠️ COMPLIANCE VIOLATION (NIST 800-53 / LEAST PRIVILEGE):</strong>
+      Overly permissive authorization policy detected. The adversary leveraged unrestricted permissions to breach internal data storage. Remediate the policy below.
+    </div>
+
+    <div class="iam-editor-container">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-size:0.8rem; font-weight:bold; color:#4a3929;">ATTACHED POLICY DEFINITION (JSON):</span>
+        <button id="btn-fix-format" class="quick-fix-btn">Format JSON</button>
+      </div>
+
+      <textarea id="iam-policy-editor" class="policy-textarea" spellcheck="false">{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "CorruptedAdminAccess",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "*",
+      "Resource": "*"
+    }
+  ]
+}</textarea>
+
+      <!-- Quick Guidance Patcher Buttons -->
+      <div class="iam-quick-fixes">
+        <span style="font-size:0.75rem; font-weight:bold; color:#5c4731; align-self:center;">AUDIT ACTIONS:</span>
+        <button id="btn-fix-principal" class="quick-fix-btn" title="Enforce authorized identity">
+          🔒 Enforce Authorized Identity
+        </button>
+        <button id="btn-fix-actions" class="quick-fix-btn" title="Restrict permissions to read-only">
+          🛡️ Enforce Least-Privilege Actions
+        </button>
+        <button id="btn-fix-resource" class="quick-fix-btn" title="Scope to secure target">
+          📦 Scope to Specific Resource
+        </button>
+      </div>
+
+      <!-- Live Compliance Checklist -->
+      <div class="iam-compliance-checklist">
+        <div id="check-principal" class="checklist-item">
+          <span class="checklist-icon">✖</span>
+          <span>Identity restricted from wildcard '*'</span>
+        </div>
+        <div id="check-action" class="checklist-item">
+          <span class="checklist-icon">✖</span>
+          <span>Least-privilege permissions enforced</span>
+        </div>
+        <div id="check-resource" class="checklist-item">
+          <span class="checklist-icon">✖</span>
+          <span>Target scoped to restricted vault / archive</span>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; margin-top:14px;">
+        <button id="btn-submit-iam" class="brass-btn" style="position:relative; z-index:10;">
+          <span>APPLY COMPLIANCE REMEDIATION</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dedicated Status & Endorsement Footer (No overlapping!) -->
+  <div class="evidence-status-footer">
+    <div class="evidence-dispatch-notes">
+      <div class="section-divider" style="margin-top:0;">
+        <div class="section-divider-title">AUDIT SPECIFICATIONS</div>
+        <div class="section-divider-line"></div>
+      </div>
+      <p style="font-size:0.84rem; line-height:1.6; color:#40352b;">
+        Never grant unrestricted wildcard access (<code>*</code>) in production infrastructure. Enforce explicit identity delegation and least-privilege scoping to satisfy security benchmarks.
+      </p>
+    </div>
+
+    <div class="evidence-stamp-slot">
+      <div id="stamp-box-evidence_02" class="stamp-slot">
+        
+        <div class="rubber-stamp stamp-red stamp-angle-left">
+          UNPATCHED POLICY
+          <span class="stamp-subtext">COMPLIANCE FAILURE</span>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+          <!-- EVIDENCE 03: THE CRYPTO HANDSHAKE (NETWORK SECURITY) -->
+<div id="view-evidence_03" class="evidence-room-view" style="display:none;">
+  <div class="evidence-objective-banner">
+    <div class="objective-tag">NETWORK SECURITY OBJECTIVE // STEP 3 OF 4</div>
+    <div class="objective-desc">
+      Reconstruct the secure TLS tunnel by configuring the cryptographic suite parameters. Eliminate deprecated, insecure algorithms to decrypt the attacker's covert transmission channel.
+    </div>
+  </div>
+
+  <div class="blueprint-wrapper">
+    <div class="blueprint-header">
+      <div class="blueprint-title">
+        ⚙️ SECURE TRANSMISSION BLUEPRINT // SPEC-CRYPT-1987
+      </div>
+      <div style="font-size:0.75rem; color:#85b8d9;">
+        NSA SUITE B & FIPS COMPLIANT
+      </div>
+    </div>
+
+    <!-- Schematic Tunnel Wiring Diagram -->
+    <div class="blueprint-diagram">
+      <div class="diagram-node">
+        <div><strong>CLIENT HOST</strong></div>
+        <div style="font-size:0.7rem; color:#79bfe8;">INTRUDER ENDPOINT</div>
+      </div>
+      <div id="diagram-tunnel-line" class="diagram-tunnel-line"></div>
+      <div class="diagram-node">
+        <div><strong>SECURITY GATEWAY</strong></div>
+        <div style="font-size:0.7rem; color:#79bfe8;">COVERT TUNNEL</div>
+      </div>
+      <div class="diagram-tunnel-line"></div>
+      <div class="diagram-node">
+        <div><strong>TARGET NODE</strong></div>
+        <div style="font-size:0.7rem; color:#79bfe8;">INTERNAL ARCHIVE</div>
+      </div>
+    </div>
+
+    <!-- Parameter Selectors Grid (2x2 or 4x1) -->
+    <div class="crypto-grid">
+      <!-- Protocol -->
+      <div class="crypto-param-card">
+        <label class="crypto-param-label" for="crypto-proto">1. Protocol Version</label>
+        <select id="crypto-proto" class="crypto-select">
+          <option value="">-- Select Protocol --</option>
+          
+          <option value="TLSv1.0">TLS 1.0 (Deprecated, BEAST vulnerable)</option>
+          
+          <option value="TLSv1.3">TLS 1.3 (RFC 8446, 0-RTT, Forward Secrecy)</option>
+          
+          <option value="SSLv3.0">SSL 3.0 (Legacy, POODLE vulnerable)</option>
+          
+          <option value="TLSv1.1">TLS 1.1 (Deprecated by RFC 8996)</option>
+          
+        </select>
+      </div>
+
+      <!-- Key Exchange -->
+      <div class="crypto-param-card">
+        <label class="crypto-param-label" for="crypto-kex">2. Key Exchange Mechanism</label>
+        <select id="crypto-kex" class="crypto-select">
+          <option value="">-- Select Key Exchange --</option>
+          
+          <option value="ECDHE">ECDHE (Elliptic Curve Diffie-Hellman Ephemeral with PFS)</option>
+          
+          <option value="RSA_STATIC">RSA Static (No PFS, private key leak compromises past traffic)</option>
+          
+          <option value="DH_ANON">Anonymous Diffie-Hellman (Vulnerable to MITM)</option>
+          
+        </select>
+      </div>
+
+      <!-- Bulk Cipher -->
+      <div class="crypto-param-card">
+        <label class="crypto-param-label" for="crypto-cipher">3. Bulk Encryption Cipher</label>
+        <select id="crypto-cipher" class="crypto-select">
+          <option value="">-- Select Cipher --</option>
+          
+          <option value="3DES_EDE_CBC">3DES-EDE-CBC (Sweet32 64-bit block collision)</option>
+          
+          <option value="AES-256-GCM">AES-256-GCM (Authenticated Encryption with AEAD)</option>
+          
+          <option value="RC4_128">RC4-128 (Broken stream cipher, RFC 7465 prohibited)</option>
+          
+          <option value="AES-128-CBC">AES-128-CBC (Vulnerable to padding oracle attacks)</option>
+          
+        </select>
+      </div>
+
+      <!-- MAC / Hash -->
+      <div class="crypto-param-card">
+        <label class="crypto-param-label" for="crypto-mac">4. Message Authentication / Hash</label>
+        <select id="crypto-mac" class="crypto-select">
+          <option value="">-- Select Hash --</option>
+          
+          <option value="SHA-384">SHA-384 (NIST SP 800-57 High-Security Standard)</option>
+          
+          <option value="MD5">MD5 (Cryptographically broken, collision trivial)</option>
+          
+          <option value="SHA-1">SHA-1 (Deprecated, shattered collision)</option>
+          
+        </select>
+      </div>
+    </div>
+
+    <!-- Action Bar with high z-index and clear margin -->
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; position:relative; z-index:20; flex-wrap:wrap; gap:12px;">
+      <span style="font-size:0.75rem; color:#85b8d9;">
+        Note: Deprecated ciphers (RC4, 3DES, MD5, static RSA) fail to establish the secure tunnel.
+      </span>
+      <button id="btn-submit-crypto" class="brass-btn" style="position:relative; z-index:25;">
+        <span>DECRYPT & INTERCEPT TRANSMISSION</span>
+      </button>
+    </div>
+
+    <!-- Decrypted Ticker Output -->
+    <div id="decrypted-transmission-tape" class="decrypted-tape" style="display:none; white-space:pre-wrap;"></div>
+  </div>
+
+  <!-- Dedicated Status & Endorsement Footer (No overlapping!) -->
+  <div class="evidence-status-footer">
+    <div class="evidence-dispatch-notes">
+      <div class="section-divider" style="margin-top:0;">
+        <div class="section-divider-title">CRYPTOGRAPHER'S FIELD NOTEBOOK</div>
+        <div class="section-divider-line"></div>
+      </div>
+      <p style="font-size:0.84rem; line-height:1.6; color:#40352b;">
+        The adversary relied on an encrypted covert tunnel. Legacy protocols and weak stream ciphers fail modern verification. Select modern authenticated encryption (AEAD) and Ephemeral Elliptic Curve Key Exchange (ECDHE for Forward Secrecy) to intercept the payload.
+      </p>
+    </div>
+
+    <div class="evidence-stamp-slot">
+      <div id="stamp-box-evidence_03" class="stamp-slot">
+        
+        <div class="rubber-stamp stamp-red stamp-angle-left">
+          TUNNEL ENCRYPTED
+          <span class="stamp-subtext">C2 STREAM ACTIVE</span>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+          <!-- EVIDENCE 04: THE ZERO-DAY PATCH (CODING / LOGIC) -->
+<div id="view-evidence_04" class="evidence-room-view" style="display:none;">
+  <div class="evidence-objective-banner">
+    <div class="objective-tag">CODING REMEDIATION OBJECTIVE // STEP 4 OF 4</div>
+    <div class="objective-desc">
+      The adversary weaponized a command injection vulnerability inside the system healthcheck utility. Inspect the Python code, replace the unsafe shell call with a secure subprocess invocation, and seal the zero-day.
+    </div>
+  </div>
+
+  <div class="code-patch-wrapper">
+    <div style="font-size:0.75rem; color:#785f46; letter-spacing:1px; margin-bottom:8px; font-weight:bold;">
+      RECOVERED MALICIOUS TARGET SCRIPT
+    </div>
+
+    <!-- Vulnerable Source Code Box -->
+    <div class="vulnerable-code-box">
+      <div style="color:#ff6b6b; font-weight:bold; margin-bottom:6px;">
+        # CRITICAL VULNERABILITY DETECTED // ACTIVE INTRUDER EXPLOIT VECTOR
+      </div>
+      <pre><code>import os
+
+def run_system_diagnostic(target_host):
+    # VULNERABLE: Direct string interpolation into shell
+    # Adversary input: '127.0.0.1; cat /etc/shadow'
+    command = f"ping -c 1 {target_host}"
+    result = os.system(command)
+    return result == 0
+</code></pre>
+    </div>
+
+    <div style="font-size:0.82rem; font-weight:bold; color:#4a3929; margin-bottom:12px;">
+      SELECT SECURITY REMEDIATION PATCH:
+    </div>
+
+    <!-- Patch Options Grid -->
+    <div class="patch-candidates-grid">
+      
+      <div class="patch-candidate-card" data-patch-id="patch_a">
+        <div class="candidate-header">
+          <span class="candidate-title">Patch Option A: Parameterized Execution (shell=False) + IP Validation</span>
+          <span style="font-size:0.72rem; color:#6e5843; font-style:italic;">Click to select candidate</span>
+        </div>
+        <div class="candidate-code">
+          <pre><code>import subprocess
+import ipaddress
+
+def run_system_diagnostic(target_host):
+    # SECURE: Strict input validation + argument array with shell=False
+    try:
+        # Validate that target_host is a valid IPv4/IPv6 address
+        ipaddress.ip_address(target_host.strip())
+    except ValueError:
+        return False
+        
+    # Argument array: target_host cannot break out into shell metacharacters
+    proc = subprocess.run(
+        ["ping", "-c", "1", target_host.strip()],
+        shell=False,
+        capture_output=True,
+        text=True,
+        timeout=5
+    )
+    return proc.returncode == 0</code></pre>
+        </div>
+      </div>
+      
+      <div class="patch-candidate-card" data-patch-id="patch_b">
+        <div class="candidate-header">
+          <span class="candidate-title">Patch Option B: Subprocess with shell=True</span>
+          <span style="font-size:0.72rem; color:#6e5843; font-style:italic;">Click to select candidate</span>
+        </div>
+        <div class="candidate-code">
+          <pre><code>import subprocess
+
+def run_system_diagnostic(target_host):
+    # Ineffective fix: shell=True passes string directly to /bin/sh
+    cmd = f"ping -c 1 {target_host}"
+    proc = subprocess.run(cmd, shell=True, capture_output=True)
+    return proc.returncode == 0</code></pre>
+        </div>
+      </div>
+      
+      <div class="patch-candidate-card" data-patch-id="patch_c">
+        <div class="candidate-header">
+          <span class="candidate-title">Patch Option C: Shell Echo Piping</span>
+          <span style="font-size:0.72rem; color:#6e5843; font-style:italic;">Click to select candidate</span>
+        </div>
+        <div class="candidate-code">
+          <pre><code>import os
+
+def run_system_diagnostic(target_host):
+    # Ineffective fix: still spawns shell interpreter
+    command = f"echo '{target_host}' | xargs ping -c 1"
+    return os.system(command) == 0</code></pre>
+        </div>
+      </div>
+      
+    </div>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; position:relative; z-index:20; flex-wrap:wrap; gap:10px;">
+      <span style="font-size:0.75rem; color:#665545;">
+        The patch will be audited against active exploit payloads before deployment.
+      </span>
+      <button id="btn-submit-patch" class="brass-btn red-alert" style="position:relative; z-index:25;">
+        <span>RUN REGRESSION EXPLOIT TESTS & DEPLOY PATCH</span>
+      </button>
+    </div>
+
+    <!-- Test Harness Output Console -->
+    <div id="exploit-console" class="exploit-test-suite-console" style="display:none;"></div>
+  </div>
+
+  <!-- Dedicated Status & Endorsement Footer (No overlapping!) -->
+  <div class="evidence-status-footer">
+    <div class="evidence-dispatch-notes">
+      <div class="section-divider" style="margin-top:0;">
+        <div class="section-divider-title">INCIDENT COMMAND FINAL ASSESSMENT</div>
+        <div class="section-divider-line"></div>
+      </div>
+      <p style="font-size:0.84rem; line-height:1.6; color:#40352b;">
+        Applying the secure patch will immediately execute an automated exploit regression test suite. Once all attack vectors are blocked, the case file will be sealed and the adversary locked out.
+      </p>
+    </div>
+
+    <div class="evidence-stamp-slot">
+      <div id="stamp-box-evidence_04" class="stamp-slot">
+        
+        <div class="rubber-stamp stamp-red stamp-angle-left">
+          ZERO-DAY ACTIVE
+          <span class="stamp-subtext">REMOTE EXPLOIT PENDING</span>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+        </div>
+
+        <!-- Case File Footer Props -->
+        <footer class="casefile-footer">
+          <!-- Manila Evidence Tag at Bottom-Left -->
+          <div class="bottom-evidence-tag-wrapper">
+            <img src="./static/img/evidence_tag.svg" alt="Evidence Tag" class="evidence-tag-bg" />
+            <div class="evidence-tag-overlay">
+              <div><span class="tag-field">Evidence Tag:</span> <span class="tag-val">CASE-87-0300Z</span></div>
+              <div><span class="tag-field">Filed By:</span> <span class="tag-val">Special Agent S.A.</span></div>
+              <div><span class="tag-field">Date:</span> <span class="tag-val">10/12/1987</span></div>
+            </div>
+          </div>
+
+          <!-- Stamp Confidential Box -->
+          <div class="stamp-confidential-small">
+            CONFIDENTIAL // EYES ONLY
+          </div>
+
+          <!-- Circular Agency Watermark Seal -->
+          <div class="agency-seal-wrapper">
+            <img src="./static/img/agency_seal.svg" alt="Official Seal" />
+          </div>
+        </footer>
+
+        <!-- Background Watermarks -->
+        <img src="./static/img/compass_rose.svg" alt="Compass Rose" class="bg-compass-watermark" />
+      </article>
+    </div>
+  </main>
+
+  <!-- Desk Floating Props -->
+  <!-- Detective Cat Desk Companion & Hint Partner -->
+  <aside id="detective-cat-widget" class="detective-cat-widget" aria-label="Detective Cat Assistant">
+    <!-- Feline Dispatch Card (Aged Manila Field Memo) -->
+    <div id="cat-speech-bubble" class="cat-speech-bubble" role="dialog" aria-labelledby="cat-badge-title">
+      <div class="cat-dispatch-header">
+        <div class="cat-dispatch-title-row">
+          <span class="cat-badge-icon">🐾</span>
+          <span id="cat-badge-title" class="cat-badge-text">INSPECTOR WHISKERS</span>
+          <span class="cat-badge-tag">HINT CONSULTANT</span>
+        </div>
+        <button id="btn-close-cat-bubble" class="cat-bubble-close" title="Close Dispatch Note" aria-label="Close">&times;</button>
+      </div>
+      <div class="cat-dispatch-meta">
+        OFFICIAL FELINE FORENSIC FIELD NOTES // CLUE LOG
+      </div>
+
+      <div id="cat-speech-text" class="cat-speech-text">
+        <em>*Sniff sniff*...</em> My whiskers detect hidden vulnerabilities in this room. Need a forensic deduction? Click <strong>Meow for Clue</strong> below!
+      </div>
+
+      <div class="cat-actions-row">
+        <button id="btn-cat-hint" class="cat-btn cat-hint-btn" title="Ask Inspector Whiskers for a clue (-30s penalty)">
+          🐾 MEOW FOR CLUE (-30s)
+        </button>
+        <button id="btn-cat-pet" class="cat-btn cat-pet-btn" title="Pet Inspector Whiskers">
+          🐱 PET INSPECTOR
+        </button>
+      </div>
+
+      <div id="cat-hints-container" class="cat-hints-container"></div>
+    </div>
+
+    <!-- Cat Character Desk Stand -->
+    <div id="cat-avatar-btn" class="cat-avatar-btn" title="Click Inspector Whiskers for Clues & Forensic Advice">
+      <img src="./static/img/detective_cat.png" alt="Detective Cat with Trench Coat, Fedora, and Magnifying Glass" class="cat-avatar-img" id="cat-avatar-img" />
+      <div class="cat-desk-shadow"></div>
+      <div class="cat-nameplate">
+        <span class="paw-icon">🐾</span> INSPECTOR WHISKERS
+      </div>
+    </div>
+  </aside>
+
+  <!-- Supervisor's Field Notes Drawer -->
+  <div class="supervisor-memo-drawer">
+    <button id="btn-memo-toggle" class="memo-toggle-btn" title="Open Supervisor's Field Notes">
+      📋 SUPERVISOR'S FIELD NOTES
+    </button>
+    <div id="supervisor-memo-card" class="memo-content-card">
+      <h4>INVESTIGATOR'S FIELD DISPATCH</h4>
+      <div style="font-size:0.75rem; color:#6b5a26; margin-bottom:10px;">
+        Unsealing a supervisor note incurs a 30-second penalty on remaining system integrity.
+      </div>
+      <div id="memo-hints-list"></div>
+      <button id="btn-unlock-hint" class="quick-fix-btn" style="width:100%; margin-top:8px;">
+        🔓 UNSEAL NEXT FIELD NOTE (-30s)
+      </button>
+    </div>
+  </div>
+
+  <!-- Victory Modal -->
+  <div id="victory-modal" class="vintage-modal-backdrop">
+    <div class="vintage-modal">
+      <div class="rubber-stamp stamp-green" style="font-size:1.4rem; margin-bottom:16px;">
+        CASE FILE RESOLVED
+      </div>
+      <h2>THREAT ACTOR LOCKED OUT</h2>
+      <p>
+        Outstanding investigation, <strong id="modal-investigator-name">Special Agent S.A.</strong>! 
+        All four cyber vulnerabilities have been remediated, the anomalous IP isolated, security policies hardened, covert tunnel decrypted, and zero-day patched.
+      </p>
+      <div style="font-size:1.15rem; font-weight:bold; color:#785d34; margin:16px 0;">
+        FINAL INVESTIGATOR SCORE: <span id="modal-final-score" style="color:#1e6b36; font-size:1.6rem;">1000</span> PTS
+      </div>
+      <div style="display:flex; justify-content:center; gap:12px; margin-top:18px; flex-wrap:wrap;">
+        <a href="./certificate.html" class="brass-btn" style="text-decoration:none;">
+          📜 VIEW & PRINT OFFICIAL CERTIFICATE
+        </a>
+        <button id="btn-victory-switch-case" class="brass-btn highlight">
+          🗄️ CHOOSE NEXT ESCAPE ROOM
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Over Modal -->
+  <div id="game-over-modal" class="vintage-modal-backdrop">
+    <div class="vintage-modal">
+      <div class="rubber-stamp stamp-red" style="font-size:1.4rem; margin-bottom:16px;">
+        SYSTEM COMPROMISED
+      </div>
+      <h2>SYSTEM INTEGRITY COLLAPSED</h2>
+      <p>
+        The 20-minute countdown expired before all zero-day vulnerabilities were secured.
+        Automated adversary wipers purged the forensic audit trail.
+      </p>
+      <button onclick="window.location.reload();" class="brass-btn red-alert" style="font-size:0.92rem; padding:10px 20px;">
+        REWIND TIME & RE-OPEN ARCHIVE
+      </button>
+    </div>
+  </div>
+
+  <!-- Embedded Session State JSON -->
+  <script id="initial-session-state" type="application/json">
+    {"active_case": "operation_cold_breach", "attempts": {"evidence_01": 0, "evidence_02": 0, "evidence_03": 0, "evidence_04": 0}, "available_cases": {"black_ice": {"briefing": "At 01:20 AM UTC, data loss prevention sensors detected massive ledger exfiltration from database cluster vault-db-master. The attacker probed payment endpoints using blind time-based SQL injection, abused an unrestricted superuser database role, initiated a covert channel, and deployed an untrusted Python pickle deserialization payload. Isolate the intruder, restrict database roles, harden key custody, and patch the deserialization zero-day.", "case_number": "CASE-87-0120B", "classification": "TOP SECRET // FINANCIAL LEDGER COMPROMISE", "compromise_timestamp": "01:20:05 UTC", "default_timer_seconds": 1200, "difficulty": "ADVANCED ZERO-DAY \u2605\u2605\u2605", "id": "black_ice", "incident_name": "BLACK ICE INCIDENT", "location": "Vault Node: vault-db-master.fincorp.internal", "threat_type": "Financial Mainframe Exfiltration \u0026 Deserialization RCE"}, "operation_cold_breach": {"briefing": "At 03:00 AM UTC, perimeter intrusion alarms on cloud server node archive-node-09 went dead. The intruder probed administrative directories, bypassed an unhardened IAM policy, initiated a covert encrypted tunnel, and weaponized a utility healthcheck script with command injection. Inspect the evidence, isolate the IP, remediate permissions, decode the tunnel, and patch the zero-day to lock out the adversary.", "case_number": "CASE-87-0300Z", "classification": "TOP SECRET // CYBER FORENSICS ARCHIVE", "compromise_timestamp": "03:00:14 UTC", "default_timer_seconds": 1200, "difficulty": "CLASSICAL FORENSICS \u2605", "id": "operation_cold_breach", "incident_name": "OPERATION COLD BREACH", "location": "Host: cloud-archive-node-09.internal", "threat_type": "Cloud Perimeter Penetration \u0026 Host Command Injection"}, "phantom_cipher": {"briefing": "At 04:15 AM UTC, industrial telemetry on municipal water pipeline controller scada-plc-04 registered unauthenticated coil override packets. The adversary utilized a rogue industrial gateway, forged an unsigned JWT token, established a legacy weak cipher tunnel, and attempted SQL injection against valve state logs. Your mission: trace the flow log, enforce JWT signature verification, reconstruct modern authenticated encryption, and patch the SQL injection.", "case_number": "CASE-87-0415X", "classification": "TOP SECRET // INDUSTRIAL CRITICAL INFRASTRUCTURE", "compromise_timestamp": "04:15:22 UTC", "default_timer_seconds": 1200, "difficulty": "CRITICAL INFRASTRUCTURE \u2605\u2605", "id": "phantom_cipher", "incident_name": "THE PHANTOM CIPHER", "location": "SCADA Host: scada-plc-04.watergrid.internal", "threat_type": "Industrial SCADA Traversal \u0026 Algorithm Downgrade Attack"}}, "case_metadata": {"briefing": "At 03:00 AM UTC, perimeter intrusion alarms on cloud server node archive-node-09 went dead. The intruder probed administrative directories, bypassed an unhardened IAM policy, initiated a covert encrypted tunnel, and weaponized a utility healthcheck script with command injection. Inspect the evidence, isolate the IP, remediate permissions, decode the tunnel, and patch the zero-day to lock out the adversary.", "case_number": "CASE-87-0300Z", "classification": "TOP SECRET // CYBER FORENSICS ARCHIVE", "compromise_timestamp": "03:00:14 UTC", "default_timer_seconds": 1200, "difficulty": "CLASSICAL FORENSICS \u2605", "id": "operation_cold_breach", "incident_name": "OPERATION COLD BREACH", "location": "Host: cloud-archive-node-09.internal", "threat_type": "Cloud Perimeter Penetration \u0026 Host Command Injection"}, "current_room": "evidence_01", "game_completed": false, "game_over": false, "game_started": false, "hints_unlocked": {"evidence_01": 0, "evidence_02": 0, "evidence_03": 0, "evidence_04": 0}, "investigator_name": "Special Agent S.A.", "score": 1000, "solved_rooms": {}, "stamps": {}, "time_remaining_seconds": 1200, "unlocked_rooms": ["evidence_01"]}
+  </script>
+
+  <!-- JavaScript Modules -->
+  <script src="./engine.js"></script>
+  <script src="./static/js/audio.js"></script>
+  <script src="./static/js/timer.js"></script>
+  <script src="./static/js/desk.js"></script>
+  <script src="./static/js/puzzles.js"></script>
+  <script src="./static/js/main.js"></script>
+</body>
+</html>

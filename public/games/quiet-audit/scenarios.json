@@ -1,0 +1,960 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "game_title": "Quiet Audit",
+    "subtitle": "Where Calm Meets Compliance",
+    "companion": {
+      "name": "Barnaby",
+      "species": "Cat",
+      "role": "Chief Purr-sonal Risk Officer",
+      "avatar_states": {
+        "neutral": "./static/images/barnaby_neutral.svg",
+        "alert": "./static/images/barnaby_alert.svg",
+        "happy": "./static/images/barnaby_happy.svg",
+        "detective": "./static/images/barnaby_detective.svg"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "id": "midnight-hotfix",
+      "chapter": 1,
+      "title": "The Midnight Hotfix",
+      "subtitle": "Public S3 Bucket on Audit Eve",
+      "category": "Cloud Security & Access Control",
+      "compliance_framework": "SOC 2 Type II (Trust Services Criteria CC6.1, CC6.6)",
+      "badge": "badge_soc2",
+      "difficulty": "Moderate",
+      "summary": "At 11:42 PM, a hurried deployment exposes an S3 bucket containing customer PII hours before the annual SOC 2 audit begins.",
+      "briefing": {
+        "context": "It is 11:42 PM on a rainy Thursday night. Lead engineer Dave was desperate to fix a broken image upload feature for tomorrow morning's Fortune 500 demo. In the rush, Dave applied a wide-open bucket policy with `Principal: *` and `s3:GetObject` to `prod-data-archive-snoozecloud`. That bucket doesn't just hold avatar images\u2014it houses automated DB dumps and customer KYC files. Tomorrow at 9:00 AM, Senior Auditor Margaret arrives for the annual SOC 2 Type II on-site review.",
+        "urgency": "CRITICAL (Sev-1)",
+        "companion_intro": "Psst! Wake up, Risk Manager! My whiskers are tingling with acute audit panic! An S3 bucket has been thrown wide open to the entire internet right under our noses. Keep your tea warm, take a deep breath, and let's handle this by the book before Auditor Margaret smells blood.",
+        "initial_state": {
+          "audit_readiness": 65,
+          "company_trust": 80,
+          "budget": 75000
+        }
+      },
+      "phases": {
+        "phase_1": {
+          "phase_id": "phase_1",
+          "title": "Phase 1: Emergency Containment",
+          "story": "AWS GuardDuty and AWS Config are firing alarms: `S3.Bucket.PublicAccessGranted`. Dave is currently celebrating on Slack in #releases with a pizza emoji, totally oblivious. You have access to AWS CloudTrail, the S3 management console, and an emergency page for on-call DevOps. What is your immediate containment action?",
+          "companion_tip": "Remember: The first rule of incident response is Containment without destroying evidence. Don't panic and delete things, or we'll have no audit trail!",
+          "companion_mood": "alert",
+          "choices": [
+            {
+              "id": "lock_s3_block_public",
+              "title": "Enable S3 Block Public Access & Lock Policy",
+              "description": "Immediately enforce Account-Level S3 Block Public Access, revert the bucket policy to Least Privilege, and notify Dave gently in a private thread.",
+              "type": "good",
+              "effects": {
+                "audit_readiness": 15,
+                "company_trust": 5,
+                "budget": -1500
+              },
+              "consequence": "Clean, swift containment! Account-level Block Public Access overrides all bad policies. Dave is privately messaged and apologetic instead of humiliated in public. The bucket is sealed in under 4 minutes.",
+              "companion_reaction": "Purr-fect containment! Enforcing S3 Block Public Access at the account root is an auditor's dream. Dave didn't get traumatized, and the perimeter is secure.",
+              "companion_mood": "happy",
+              "next_phase_id": "phase_2"
+            },
+            {
+              "id": "delete_bucket_panicked",
+              "title": "Nuke the Bucket! (Delete the entire S3 bucket)",
+              "description": "Panic! Click 'Delete Bucket' immediately to erase all trace of the misconfiguration before the auditor can see it.",
+              "type": "bad",
+              "effects": {
+                "audit_readiness": -25,
+                "company_trust": -30,
+                "budget": -12000
+              },
+              "consequence": "DISASTER! Deleting the bucket knocked down the live production image service, destroyed historical customer snapshots, and triggered a company-wide Sev-0 outage. The VP of Engineering is dialling your mobile in rage.",
+              "companion_reaction": "MEOWWWWW! WHAT DID YOU JUST DO?! You destroyed the evidence AND the production database backups! That's a catastrophic audit finding and a sev-0 outage!",
+              "companion_mood": "alert",
+              "remediation": {
+                "trigger_reason": "Destruction of company assets and critical audit logs without change authorization.",
+                "situation": "Production is down, backups are missing, and the VP of Engineering is demanding an immediate root cause explanation before dawn.",
+                "remediation_choices": [
+                  {
+                    "id": "rem_restore_and_log",
+                    "title": "Restore from Cross-Region Replica & File Incident",
+                    "description": "Trigger the AWS Cross-Region Glacier replica, spin up a new restricted bucket, and write an honest Sev-0 Incident Report with remediation timeline.",
+                    "effects": {
+                      "audit_readiness": 10,
+                      "company_trust": 15,
+                      "budget": -6000
+                    },
+                    "consequence": "The Glacier replica was restored by 4:00 AM. Costs were incurred, but the honest post-mortem salvaged your credibility with the VP of Engineering.",
+                    "companion_reaction": "Phew... Good save. Auditors respect a rigorous incident post-mortem with corrective actions more than a shady cover-up.",
+                    "companion_mood": "detective",
+                    "next_phase_id": "phase_2"
+                  },
+                  {
+                    "id": "rem_blame_dave",
+                    "title": "Blame Dave publicly in #announcements",
+                    "description": "Announce that Dave broke production and you had no choice but to purge the bucket to protect the company.",
+                    "effects": {
+                      "audit_readiness": -10,
+                      "company_trust": -25,
+                      "budget": -2000
+                    },
+                    "consequence": "Engineering morale plummets to absolute zero. The lead architect resigns on the spot, and the auditor notes a severe toxic culture risk under control environment criteria CC1.1.",
+                    "companion_reaction": "Hisss! Blaming team members destroys psychological safety. A healthy GRC culture focuses on blameless post-mortems and automated guardrails!",
+                    "companion_mood": "alert",
+                    "next_phase_id": "phase_2"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "wait_till_morning",
+              "title": "Wait Until Morning: 'Nobody knows the URL anyway'",
+              "description": "It's midnight and you're sleepy. Hope that automated internet scanners don't find the bucket before 8:30 AM.",
+              "type": "bad",
+              "effects": {
+                "audit_readiness": -20,
+                "company_trust": -20,
+                "budget": -8000
+              },
+              "consequence": "Bad gamble! At 3:14 AM, an automated security researcher bot scraped the bucket. A polite disclosure email arrives in security@, requesting a bug bounty before they publish the finding on social media.",
+              "companion_reaction": "Oh dear whiskers... 'Security through obscurity' is NOT a recognized compliance framework! Now we have to pay a bug bounty!",
+              "companion_mood": "alert",
+              "remediation": {
+                "trigger_reason": "Failure to mitigate known critical exposure in a timely manner.",
+                "situation": "A researcher has the data sample and is awaiting confirmation that the bucket has been secured before posting on Hacker News.",
+                "remediation_choices": [
+                  {
+                    "id": "rem_bounty_and_contain",
+                    "title": "Seal Bucket, Pay $2,500 Bounty & Sign Safe Harbor",
+                    "description": "Lock the bucket immediately, validate the researcher followed responsible disclosure, issue a safe harbor payout, and verify no other IPs touched it.",
+                    "effects": {
+                      "audit_readiness": 10,
+                      "company_trust": 5,
+                      "budget": -4500
+                    },
+                    "consequence": "The researcher verified the fix, deleted their local test copy, and praised SnoozeCloud's rapid response. Discloseable, but contained.",
+                    "companion_reaction": "Handled with grace. Responsible disclosure programs turn potential disasters into proof of operational maturity.",
+                    "companion_mood": "happy",
+                    "next_phase_id": "phase_2"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "phase_2": {
+          "phase_id": "phase_2",
+          "title": "Phase 2: Log Forensics & Blast Radius",
+          "story": "The bucket is now secure, but you need to know the truth: Was anything sensitive actually downloaded while it was public? The SOC 2 auditor will ask for proof of impact. CloudTrail data events and Athena query engines are ready.",
+          "companion_tip": "Auditors love hard telemetry. If you can prove with Athena queries that zero unauthorized IPs downloaded customer PII, you turn a breach into a harmless misconfiguration.",
+          "companion_mood": "detective",
+          "choices": [
+            {
+              "id": "run_athena_forensics",
+              "title": "Run Athena Queries on S3 Access Logs & CloudTrail",
+              "description": "Spin up an automated Amazon Athena query on CloudTrail S3 Data Events to audit every GetObject request during the 42-minute exposure window.",
+              "type": "good",
+              "effects": {
+                "audit_readiness": 15,
+                "company_trust": 10,
+                "budget": -2500
+              },
+              "consequence": "Exemplary forensic work! The query reveals only 3 requests occurred: 2 from Dave's laptop testing avatars, and 1 from an internal health-check probe. Zero customer PII was exfiltrated!",
+              "companion_reaction": "Aha! Look at these lovely query results. No external downloads detected. We have mathematical, cryptographic proof to hand to Auditor Margaret!",
+              "companion_mood": "happy",
+              "next_phase_id": "phase_3"
+            },
+            {
+              "id": "assume_fine_no_logs",
+              "title": "Don't Check Logs: 'If AWS didn't crash, we are fine'",
+              "description": "Skip the Athena query costs. CloudTrail data events cost a few dollars, so let's save money and assume nobody noticed.",
+              "type": "risky",
+              "effects": {
+                "audit_readiness": -10,
+                "company_trust": -5,
+                "budget": 0
+              },
+              "consequence": "You saved $20 on AWS queries, but when Auditor Margaret asks for evidence of blast radius, you will have empty hands and sweaty palms.",
+              "companion_reaction": "Risk Manager... in the audit kingdom, if it isn't logged and analyzed, you're guilty until proven innocent!",
+              "companion_mood": "alert",
+              "next_phase_id": "phase_3"
+            }
+          ]
+        },
+        "phase_3": {
+          "phase_id": "phase_3",
+          "title": "Phase 3: Auditor Margaret's Arrival",
+          "story": "It is 9:15 AM. Auditor Margaret is sitting in Conference Room B with a cup of black coffee and a highlighter. She smiles and says: 'Good morning! I ran my automated Cloudsploit scan of your AWS account overnight, and I noticed a brief policy modification on your archive bucket at 11:42 PM. Walk me through what happened.'",
+          "companion_tip": "Transparency with controls beats defensive lying every single time. Show her our CAPA (Corrective and Preventive Action) and CI/CD policy-as-code guardrail.",
+          "companion_mood": "neutral",
+          "choices": [
+            {
+              "id": "present_capa_and_guardrails",
+              "title": "Present Incident Ticket, Athena Logs, and New IAM Guardrail",
+              "description": "Walk Margaret through the timeline honestly: show the 4-minute containment, the Athena evidence confirming zero leak, and demonstrate the new Terraform SCP preventing public buckets forever.",
+              "type": "good",
+              "effects": {
+                "audit_readiness": 20,
+                "company_trust": 15,
+                "budget": -1000
+              },
+              "consequence": "Auditor Margaret is genuinely impressed! 'Most startups try to hide their hiccups,' she notes. 'Your automated detection, rapid containment, and preventive Service Control Policy (SCP) demonstrate mature operational control.'",
+              "companion_reaction": "PURRRRRRR! Look at Margaret smiling! She's writing down 'Clean Management Representation' in her SOC 2 binder!",
+              "companion_mood": "happy",
+              "next_phase_id": "conclusion"
+            },
+            {
+              "id": "deny_and_deflect",
+              "title": "Deny Everything: 'That was just a scheduled test script!'",
+              "description": "Tell Margaret it was an intentional penetration testing exercise and that everything was fully under control.",
+              "type": "bad",
+              "effects": {
+                "audit_readiness": -35,
+                "company_trust": -20,
+                "budget": -5000
+              },
+              "consequence": "Margaret asks to see the pre-approved Pentest Authorization ticket and change management approval from CAB. You have neither. Margaret marks a 'Qualified Audit Opinion with Material Weakness' for lack of integrity.",
+              "companion_reaction": "Barnaby hides his head under his paws in utter mortification. You never lie to an auditor with CloudTrail access!",
+              "companion_mood": "alert",
+              "remediation": {
+                "trigger_reason": "Material misstatement and lack of change management documentation during formal audit inquiry.",
+                "situation": "Margaret has issued a Draft Exception Finding. You have 2 hours to appeal to the Audit Partner with factual evidence.",
+                "remediation_choices": [
+                  {
+                    "id": "rem_formal_retraction",
+                    "title": "Formally Retract, Submit Post-Mortem & Implement AWS Conformance Pack",
+                    "description": "Issue an apology memo citing miscommunication, provide the complete unvarnished incident log, and implement AWS Conformance Pack for continuous compliance.",
+                    "effects": {
+                      "audit_readiness": 15,
+                      "company_trust": 5,
+                      "budget": -3500
+                    },
+                    "consequence": "The Audit Partner downgrades the finding from a Material Weakness to an 'Informational Observation with Remediated Status'. Narrowly survived!",
+                    "companion_reaction": "Paws crossed! We dodged the worst-case scenario. Honesty is always the cheapest compliance policy in the long run.",
+                    "companion_mood": "happy",
+                    "next_phase_id": "conclusion"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "conclusion": {
+        "success_threshold": {
+          "audit_readiness": 75,
+          "company_trust": 60,
+          "budget": 20000
+        },
+        "takeaway": "Real GRC Lesson: SOC 2 compliance is not about never making mistakes; it is about having robust automated detection, immutable logging (CloudTrail), swift containment, and honest Corrective & Preventive Action (CAPA) plans."
+      }
+    },
+    {
+      "id": "vendor-breach",
+      "chapter": 2,
+      "title": "The Third-Party Vendor Breach",
+      "subtitle": "Shadow IT & Supply Chain Exposure",
+      "category": "Third-Party Risk Management (TPRM)",
+      "compliance_framework": "ISO 27001:2022 (Control A.5.19 & A.5.20) / GDPR Art. 28",
+      "badge": "badge_incident",
+      "difficulty": "Challenging",
+      "summary": "An unvetted marketing AI widget suffers a major credential leak. Customer data might be exposed, and the 72-hour GDPR clock is ticking.",
+      "briefing": {
+        "context": "Three months ago, the Growth team quietly added a shiny new AI analytics tool, 'ClickPixie AI', into the web frontend to boost conversion rates. No Vendor Risk Assessment (VRA) was conducted, no Data Processing Agreement (DPA) was signed, and Security was never looped in. This morning, an emergency bulletin hits the news: ClickPixie's production AWS keys were leaked via a public GitHub repo. Attackers have been exfiltrating analytics databases containing user email addresses and session telemetry.",
+        "urgency": "HIGH (Supply Chain Incident)",
+        "companion_intro": "Oh whiskers, classic Shadow IT! The marketing squad installed third-party JavaScript without checking their SOC 2 report or SOC 3 summary. Now ClickPixie is leaking like a colander, and regulatory fines could rain down like hail. Let's practice calm, steady vendor triage!",
+        "initial_state": {
+          "audit_readiness": 60,
+          "company_trust": 75,
+          "budget": 85000
+        }
+      },
+      "phases": {
+        "phase_1": {
+          "phase_id": "phase_1",
+          "title": "Phase 1: Kill-Switch & Token Revocation",
+          "story": "The news is spreading quickly on tech blogs. SnoozeCloud's engineering lead confirms ClickPixie's SDK is currently running live on your checkout and signup pages. If attackers abuse the leaked credentials, they might inject malicious scripts or siphon user data right now.",
+          "companion_tip": "Sever the connection first! Revoke all API keys, flush the CDN cache, and remove the external script tag before doing paperwork.",
+          "companion_mood": "alert",
+          "choices": [
+            {
+              "id": "immediate_killswitch",
+              "title": "Deploy Emergency CDN Script Removal & Rotate All Integration Keys",
+              "description": "Trigger the Cloudflare CDN edge rule to strip ClickPixie's JS bundle immediately, rotate SnoozeCloud's API tokens, and invalidate shared webhooks.",
+              "type": "good",
+              "effects": {
+                "audit_readiness": 15,
+                "company_trust": 10,
+                "budget": -3000
+              },
+              "consequence": "The malicious script pipeline is terminated in under 3 minutes. Zero further data can flow to ClickPixie's compromised infrastructure.",
+              "companion_reaction": "Sharp claws, swift cut! The bleeding has stopped. Cutting off the compromised vendor at the edge protected every single visiting customer.",
+              "companion_mood": "happy",
+              "next_phase_id": "phase_2"
+            },
+            {
+              "id": "lawyer_up_first",
+              "title": "Draft a Cease-and-Desist Letter Before Doing Anything",
+              "description": "Insist that Corporate Legal draft an angry demand letter to ClickPixie before engineers touch production code.",
+              "type": "bad",
+              "effects": {
+                "audit_readiness": -20,
+                "company_trust": -25,
+                "budget": -15000
+              },
+              "consequence": "While lawyers debated phrasing for 6 hours, the attacker pushed a compromised update that harvested 1,200 active checkout sessions. Legal fees exploded, and trust took a beating.",
+              "companion_reaction": "Meowww! You can't sue a fire while your house is burning down! Technical containment must ALWAYS precede legal correspondence!",
+              "companion_mood": "alert",
+              "remediation": {
+                "trigger_reason": "Delayed incident containment resulting in active session token compromise.",
+                "situation": "Customers are noticing suspicious password reset prompts. You need to reset all customer sessions and retain a digital forensics firm.",
+                "remediation_choices": [
+                  {
+                    "id": "rem_forensic_session_flush",
+                    "title": "Retain Forensic IR Firm & Force Global Password/Session Reset",
+                    "description": "Retain an external incident response retainer firm ($18,000) to confirm scope, and mandate a graceful global session logout with MFA re-verification.",
+                    "effects": {
+                      "audit_readiness": 10,
+                      "company_trust": 5,
+                      "budget": -18000
+                    },
+                    "consequence": "The forensic firm confirms the attacker only scraped session hashes before the flush. Decisive remediation saved the company from a complete account takeover catastrophe.",
+                    "companion_reaction": "Expensive lesson, but you took responsibility and preserved customer security. Barnaby gives this recovery a solid paw of approval.",
+                    "companion_mood": "detective",
+                    "next_phase_id": "phase_2"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "phase_2": {
+          "phase_id": "phase_2",
+          "title": "Phase 2: The 72-Hour Regulatory Clock",
+          "story": "Under GDPR Article 33 and various state breach laws, you have exactly 72 hours from becoming aware of a personal data breach to notify Data Protection Authorities (DPA) unless the breach is unlikely to result in risk to individuals. Was customer PII impacted?",
+          "companion_tip": "Don't delay. Conduct a rapid Data Protection Impact Assessment (DPIA). If PII was leaked, transparent notification builds long-term customer trust.",
+          "companion_mood": "detective",
+          "choices": [
+            {
+              "id": "transparent_notification",
+              "title": "Conduct DPIA & Issue Proactive Notice to Regulators & Affected Users",
+              "description": "Map the exact fields sent to ClickPixie (email, hashed IP), establish that financial data was not involved, and send a clear, honest advisory to regulators and users within 24 hours.",
+              "type": "good",
+              "effects": {
+                "audit_readiness": 15,
+                "company_trust": 15,
+                "budget": -5000
+              },
+              "consequence": "Customers and regulators applaud your swift transparency and lack of corporate spin. The Irish DPC logs the case as 'Properly Disclosed with Low Residual Harm'.",
+              "companion_reaction": "Purr-fect ethics! In modern compliance, radical transparency is your best armor. Fines are levied on cover-ups, not honest victims who respond well.",
+              "companion_mood": "happy",
+              "next_phase_id": "phase_3"
+            },
+            {
+              "id": "hush_it_up",
+              "title": "Keep Quiet: 'It was only email hashes, nobody cares'",
+              "description": "Decide not to report anything to the authorities. Hope that nobody correlates the leaked GitHub dump back to SnoozeCloud.",
+              "type": "bad",
+              "effects": {
+                "audit_readiness": -30,
+                "company_trust": -30,
+                "budget": -25000
+              },
+              "consequence": "A prominent security researcher downloads the leak, discovers SnoozeCloud customer emails, and publishes a devastating front-page expos\u00e9 on TechCrunch. Regulatory authorities launch a formal investigation with heavy penalties!",
+              "companion_reaction": "Barnaby gasps in horror! GDPR fines can reach up to 4% of annual global turnover! Silence is the most expensive mistake in GRC!",
+              "companion_mood": "alert",
+              "remediation": {
+                "trigger_reason": "Failure to notify supervisory authorities within the mandatory 72-hour window.",
+                "situation": "Regulators have issued a formal inquiry notice. You must submit a comprehensive remediation brief to avoid maximum tier fines.",
+                "remediation_choices": [
+                  {
+                    "id": "rem_regulatory_cooperation",
+                    "title": "Full Cooperative Disclosure with Independent Audit Audit Trail",
+                    "description": "Submit a full chronological audit trail, admit the reporting delay, and commit to an ISO 27701 Privacy Information Management System rollout.",
+                    "effects": {
+                      "audit_readiness": 10,
+                      "company_trust": -5,
+                      "budget": -12000
+                    },
+                    "consequence": "The regulator acknowledges the remedial actions and issues a formal reprimand instead of a business-killing sanction.",
+                    "companion_reaction": "A close scrape with disaster. Barnaby sighs with relief. Let's make sure shadow IT never sneaks past us again.",
+                    "companion_mood": "neutral",
+                    "next_phase_id": "phase_3"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "phase_3": {
+          "phase_id": "phase_3",
+          "title": "Phase 3: Institutional Guardrails",
+          "story": "The storm has passed, but the Executive Board wants to ensure this never happens again. The Chief Marketing Officer argues: 'We cannot slow down marketing experiments with 6-week security reviews!' How do you institutionalize Third-Party Risk Management (TPRM)?",
+          "companion_tip": "The secret to great GRC is not saying 'No', it's building a fast, lightweight 'Yes, with guardrails' path.",
+          "companion_mood": "neutral",
+          "choices": [
+            {
+              "id": "lightweight_tprm_portal",
+              "title": "Implement a Tiered TPRM Workflow with Procurement Integration",
+              "description": "Integrate a 24-hour self-service vendor risk questionnaire in Jira with automated SOC 2 report parsing and automated procurement blocking for unvetted tools.",
+              "type": "good",
+              "effects": {
+                "audit_readiness": 20,
+                "company_trust": 15,
+                "budget": -4000
+              },
+              "consequence": "The Marketing team loves the fast 24-hour turnaround! IT and GRC now have 100% visibility over all SaaS contracts and data flows before any credit card is charged.",
+              "companion_reaction": "Magnificent! You transformed a crisis into a mature, frictionless enterprise control system. You deserve an extra saucer of milk!",
+              "companion_mood": "happy",
+              "next_phase_id": "conclusion"
+            },
+            {
+              "id": "ban_all_saas",
+              "title": "Total Lockout: Ban all external SaaS and widgets permanently",
+              "description": "Establish a draconian policy: No third-party tools allowed. Engineering must build everything in-house.",
+              "type": "risky",
+              "effects": {
+                "audit_readiness": 5,
+                "company_trust": -20,
+                "budget": -20000
+              },
+              "consequence": "Marketing and Sales rebel. Product velocity slows to a crawl as developers waste 6 months reinventing basic analytics. Shadow IT simply moves to personal devices.",
+              "companion_reaction": "Draconian policies always backfire! When you make compliance impossible, people just route around it. Build paved roads, not brick walls!",
+              "companion_mood": "detective",
+              "next_phase_id": "conclusion"
+            }
+          ]
+        }
+      },
+      "conclusion": {
+        "success_threshold": {
+          "audit_readiness": 75,
+          "company_trust": 65,
+          "budget": 25000
+        },
+        "takeaway": "Real GRC Lesson: Modern organizations run on hundreds of third-party vendors. Vendor Risk Management (TPRM) is not an obstacle to business\u2014it is the seatbelt that allows a tech company to drive fast safely."
+      }
+    },
+    {
+      "id": "ex-employee-access",
+      "chapter": 3,
+      "title": "The Ex-Employee Access Loop",
+      "subtitle": "Ghost Credentials & Offboarding Gaps",
+      "category": "Identity & Access Management (IAM)",
+      "compliance_framework": "SOC 2 CC6.2, CC6.3 / NIST CSF PR.AC-1",
+      "badge": "badge_soc2",
+      "difficulty": "Expert",
+      "summary": "A star contractor's agreement expired two weeks ago, but their AWS STS tokens and GitHub SSH keys are still active\u2014and someone is downloading repos from Lisbon.",
+      "briefing": {
+        "context": "Star backend contractor 'Viktor' concluded his six-month contract fourteen days ago. HR recorded his departure in their payroll spreadsheet, but failed to trigger the IT deprovisioning ticket. During a routine midnight User Access Review (UAR), Barnaby's automated script detects active AWS STS assume-role calls using Viktor's persistent developer credentials originating from an unfamiliar IP address in Lisbon, Portugal. Viktor was based in Berlin.",
+        "urgency": "CRITICAL (Active Unauthorized Access)",
+        "companion_intro": "Claws out, Risk Manager! This is every auditor's favourite finding: Ghost Credentials! Someone is using an offboarded contractor's identity to poke around our infrastructure. Is it Viktor casually backing up his portfolio, or has his laptop been hijacked? Let's investigate with calm precision!",
+        "initial_state": {
+          "audit_readiness": 65,
+          "company_trust": 80,
+          "budget": 90000
+        }
+      },
+      "phases": {
+        "phase_1": {
+          "phase_id": "phase_1",
+          "title": "Phase 1: Session Invalidation & Identity Lockdown",
+          "story": "Viktor's Okta identity has active sessions, an AWS IAM user with AdministratorAccess attached directly instead of via role-based access control (RBAC), and active SSH keys on the production bastion. Commands are actively running.",
+          "companion_tip": "Principle of Least Privilege and Zero Trust: Kill active sessions immediately across Okta, AWS IAM STS, and GitHub. Do not wait for business hours.",
+          "companion_mood": "alert",
+          "choices": [
+            {
+              "id": "atomic_deprovisioning",
+              "title": "Execute Atomic Identity Revocation Across Okta, AWS STS, and GitHub",
+              "description": "Run the automated revocation script: terminate active Okta tokens, attach the AWS explicit DenyAll inline policy to Viktor's IAM user, and revoke his GitHub org membership and SSH keys simultaneously.",
+              "type": "good",
+              "effects": {
+                "audit_readiness": 15,
+                "company_trust": 10,
+                "budget": -1000
+              },
+              "consequence": "Instant termination! The active connection from Lisbon drops immediately. The attacker/user is completely locked out of all corporate resources in 45 seconds.",
+              "companion_reaction": "Meow! That was clinical! DenyAll attached, session tokens expired, keys revoked. The intruder is left knocking on an unbreakable steel door.",
+              "companion_mood": "happy",
+              "next_phase_id": "phase_2"
+            },
+            {
+              "id": "telegram_viktor",
+              "title": "Send Viktor a casual message on Telegram first",
+              "description": "Message Viktor asking: 'Hey buddy, are you currently on vacation in Portugal checking your old code?'",
+              "type": "bad",
+              "effects": {
+                "audit_readiness": -20,
+                "company_trust": -15,
+                "budget": -10000
+              },
+              "consequence": "If it was a malicious actor (or Viktor doing an unauthorized clone), you just tipped them off! The Lisbon session immediately starts a rapid git pull of your proprietary algorithms before you can lock them out.",
+              "companion_reaction": "NEVER tip off an unverified session! If an attacker compromised Viktor's credentials, you just gave them a 10-minute head start to steal the crown jewels!",
+              "companion_mood": "alert",
+              "remediation": {
+                "trigger_reason": "Tipping off unauthorized actor before securing administrative boundaries.",
+                "situation": "The session managed to download 4 private git repositories before disconnecting. You need urgent intellectual property containment.",
+                "remediation_choices": [
+                  {
+                    "id": "rem_vault_rotate_and_dmca",
+                    "title": "Rotate All Embedded Secrets, Audit Git Hashes & Legal Preservation",
+                    "description": "Assume any API key or secret inside those repositories is burned: rotate database passwords and Stripe keys via HashiCorp Vault, and issue a formal preservation letter.",
+                    "effects": {
+                      "audit_readiness": 10,
+                      "company_trust": 5,
+                      "budget": -12000
+                    },
+                    "consequence": "All secrets rotated within 2 hours. Viktor replied an hour later: his laptop was stolen at Lisbon airport! Thanks to your secret rotation, the thieves only got useless encrypted hashes.",
+                    "companion_reaction": "Aha! His laptop was stolen! That's why credential lifecycle management is so vital. Well recovered!",
+                    "companion_mood": "detective",
+                    "next_phase_id": "phase_2"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "phase_2": {
+          "phase_id": "phase_2",
+          "title": "Phase 2: Forensic Bastion & Database Audit",
+          "story": "The access is severed, but you must answer the million-dollar audit question: What did the Lisbon session actually touch while it had access? Did they access the production PostgreSQL customer database or modify code?",
+          "companion_tip": "Review CloudTrail, VPC Flow Logs, and GitHub Audit Logs. Check for git pushes or tampering with deployment pipelines.",
+          "companion_mood": "detective",
+          "choices": [
+            {
+              "id": "full_telemetry_audit",
+              "title": "Correlate VPC Flow Logs, Database Query Logs & Git Commits",
+              "description": "Feed CloudTrail and PostgreSQL query logs into your SIEM to check whether any SELECT * queries ran against customer tables, and verify the cryptographic integrity of main branch commits.",
+              "type": "good",
+              "effects": {
+                "audit_readiness": 15,
+                "company_trust": 10,
+                "budget": -2000
+              },
+              "consequence": "Deep forensic audit proves the session only queried public documentation and attempted a git pull on an archived repo. Zero production customer database queries were executed.",
+              "companion_reaction": "Such pristine evidence! We have full timestamps, IP hashes, and zero tampering detected. Our audit trail is spotless.",
+              "companion_mood": "happy",
+              "next_phase_id": "phase_3"
+            },
+            {
+              "id": "reformat_bastion",
+              "title": "Wipe and Reformat the Bastion Host to 'Be Safe'",
+              "description": "Immediately blow away the bastion host and reinstall the OS without taking an EBS forensic snapshot.",
+              "type": "bad",
+              "effects": {
+                "audit_readiness": -25,
+                "company_trust": -20,
+                "budget": -6000
+              },
+              "consequence": "You destroyed all forensic evidence on disk! When the external auditor asks for proof that the bastion host was not backdoor-compromised, you have zero logs to show.",
+              "companion_reaction": "Barnaby weeps into his compliance binder! Destroying evidence violates every digital forensics standard (NIST SP 800-86). Never wipe before you snapshot!",
+              "companion_mood": "alert",
+              "remediation": {
+                "trigger_reason": "Destruction of forensic evidence and failure to maintain chain of custody.",
+                "situation": "Auditors cannot verify whether malware was installed on the network. You must run a full compromise assessment across the entire VPC.",
+                "remediation_choices": [
+                  {
+                    "id": "rem_vpc_compromise_scan",
+                    "title": "Commission External Compromise Assessment & Re-architect with AWS SSM",
+                    "description": "Run an automated AWS Systems Manager (SSM) agent scan across all EC2 instances and deprecate SSH bastion hosts in favor of IAM-governed SSM Session Manager.",
+                    "effects": {
+                      "audit_readiness": 15,
+                      "company_trust": 5,
+                      "budget": -8000
+                    },
+                    "consequence": "Zero backdoors detected, and eliminating SSH bastions entirely is an architectural upgrade that delights the SOC 2 auditor.",
+                    "companion_reaction": "Turning an architectural blunder into an enterprise Zero Trust upgrade! That is the true mark of a master Risk Manager.",
+                    "companion_mood": "happy",
+                    "next_phase_id": "phase_3"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "phase_3": {
+          "phase_id": "phase_3",
+          "title": "Phase 3: The Systemic Fix (SCIM Automation)",
+          "story": "The root cause of this near-miss was human error: HR maintained contractor departure dates in a spreadsheet, while IT waited for manual tickets. How do you permanently eliminate ghost credentials from SnoozeCloud?",
+          "companion_tip": "Human processes always fail eventually. The gold standard in SOC 2 CC6.2 is automated SCIM provisioning tied directly to the HRIS source of truth.",
+          "companion_mood": "neutral",
+          "choices": [
+            {
+              "id": "automated_scim_hris",
+              "title": "Implement SCIM Provisioning & Automated HRIS-to-IdP Webhook",
+              "description": "Tie the HRIS (Rippling/BambooHR) directly to Okta via SCIM webhooks. The second a contractor contract reaches end-date, all downstream accounts deprovision automatically without human intervention.",
+              "type": "good",
+              "effects": {
+                "audit_readiness": 20,
+                "company_trust": 15,
+                "budget": -5000
+              },
+              "consequence": "Flawless governance automation! Offboarding now takes 0.0 seconds. The annual SOC 2 audit samples 25 employee offboardings and finds a 100% automated pass rate.",
+              "companion_reaction": "Barnaby is purring loudly! Automated SCIM provisioning is the holy grail of access compliance. Auditor Margaret will shed a tear of joy!",
+              "companion_mood": "happy",
+              "next_phase_id": "conclusion"
+            },
+            {
+              "id": "weekly_calendar_reminder",
+              "title": "Set a Weekly Google Calendar Reminder for HR",
+              "description": "Ask HR to set a recurring calendar event every Friday afternoon to email IT a list of people who left.",
+              "type": "risky",
+              "effects": {
+                "audit_readiness": 0,
+                "company_trust": 0,
+                "budget": 0
+              },
+              "consequence": "Within two months, someone takes vacation, forgets the calendar reminder, and another terminated employee keeps access for three weeks.",
+              "companion_reaction": "Calendar reminders are not an internal control! When humans are busy, manual checks are the first thing dropped. Automation is the only true compliance defense.",
+              "companion_mood": "detective",
+              "next_phase_id": "conclusion"
+            }
+          ]
+        }
+      },
+      "conclusion": {
+        "success_threshold": {
+          "audit_readiness": 75,
+          "company_trust": 65,
+          "budget": 30000
+        },
+        "takeaway": "Real GRC Lesson: Offboarding is one of the most heavily scrutinized areas in SOC 2, ISO 27001, and SOX. Relying on manual emails between HR and IT guarantees audit exceptions. Automated lifecycle management (SCIM) is essential."
+      }
+    },
+    {
+      "id": "boardroom-phish",
+      "chapter": 4,
+      "title": "The Boardroom Phish",
+      "subtitle": "Executive Wire Fraud & Illicit OAuth Apps",
+      "category": "Phishing Defense & Financial Controls",
+      "compliance_framework": "SOC 2 CC6.8 (Malware Defense) / NIST CSF DE.CM-1",
+      "badge": "badge_incident",
+      "difficulty": "Challenging",
+      "summary": "At 4:45 PM on Friday, the CFO receives an urgent email from the 'CEO' requesting an immediate $350k wire, while an unauthorized OAuth app hijacks corporate email.",
+      "briefing": {
+        "context": "It is Friday at 4:45 PM. SnoozeCloud is closing its crucial $20M Series B round. CFO Evelyn receives an urgent email appearing to come from the CEO's personal iCloud account: 'Evelyn, the escrow bank account changed at the last second! Please wire $350,000 immediately to this overseas account before the wires cut off at 5:00 PM, or we lose the lead investor.' Simultaneously, Barnaby's security telemetry detects a suspicious Google Workspace OAuth authorization: an unverified app called 'FinanceAutoSync' was granted read-write access to Evelyn's corporate inbox.",
+        "urgency": "CRITICAL (Active Wire Fraud & Phishing)",
+        "companion_intro": "Hold onto your tea mugs, Risk Manager! This is an executive spear-phish and Business Email Compromise (BEC) in progress! The attacker is using an illicit OAuth app to monitor the CFO's inbox while impersonating the CEO. One wrong click and our company bank account gets drained by $350,000! Let's handle this with ironclad financial controls.",
+        "initial_state": {
+          "audit_readiness": 65,
+          "company_trust": 75,
+          "budget": 85000
+        }
+      },
+      "phases": {
+        "phase_1": {
+          "phase_id": "phase_1",
+          "title": "Phase 1: The Urgent $350k Wire Request",
+          "story": "CFO Evelyn is panicked on Slack in #finance-urgent: 'I have the bank portal open on my laptop right now! Should I click send? If I don't send this wire in 12 minutes, the Series B might fall through!' What is your immediate executive counsel?",
+          "companion_tip": "Never authorize financial disbursements based on email alone. Execute a mandatory out-of-band voice callback to the CEO over a known pre-registered phone number.",
+          "companion_mood": "alert",
+          "choices": [
+            {
+              "id": "out_of_band_verification",
+              "title": "Halt Wire & Perform Out-of-Band Voice Verification with CEO",
+              "description": "Instruct Evelyn to freeze the bank portal immediately, call the CEO directly on his verified personal cell phone, and isolate Evelyn's laptop.",
+              "type": "good",
+              "effects": {
+                "audit_readiness": 15,
+                "company_trust": 15,
+                "budget": -500
+              },
+              "consequence": "The CEO answers immediately: 'I never sent any wire request! I am sitting with the lead investor right now, our escrow account has not changed!' Wire halted, $350k saved, and Evelyn sighs with immense gratitude.",
+              "companion_reaction": "Purr-fect verification! Out-of-band voice verification is the ultimate antidote to Business Email Compromise. You just saved the company $350,000!",
+              "companion_mood": "happy",
+              "next_phase_id": "phase_2"
+            },
+            {
+              "id": "approve_wire_under_pressure",
+              "title": "Approve the Wire to Avoid Delaying the Series B",
+              "description": "Tell Evelyn: 'It's the CEO during a critical deal closing, we can't afford to delay\u2014click send!'",
+              "type": "bad",
+              "effects": {
+                "audit_readiness": -30,
+                "company_trust": -35,
+                "budget": -350000
+              },
+              "consequence": "CATASTROPHE! The wire transfers instantly to an offshore bank account in Eastern Europe and is routed into crypto mixers within 4 minutes. The company's payroll reserve is wiped out!",
+              "companion_reaction": "HISSSSSS! Barnaby knocks his coffee mug off the desk in sheer shock! You just wired $350,000 to an overseas attacker without verbal authorization!",
+              "companion_mood": "alert",
+              "remediation": {
+                "trigger_reason": "Failure to enforce dual-custody authorization for high-value financial transactions.",
+                "situation": "The $350k wire left the company account. Attacker is laundering it. You need emergency wire recall and fraud response.",
+                "remediation_choices": [
+                  {
+                    "id": "rem_fbi_ic3_recall",
+                    "title": "Emergency FBI IC3 & SWIFT Bank Fraud Recall",
+                    "description": "Trigger the bank's fraud kill-switch, submit an FBI Internet Crime Complaint (IC3) priority freeze, and file an emergency insurance claim.",
+                    "effects": {
+                      "audit_readiness": 10,
+                      "company_trust": 5,
+                      "budget": -25000
+                    },
+                    "consequence": "The FBI Financial Fraud Kill Chain successfully froze $220,000 before it left the intermediary correspondent bank. Devastating loss, but partial recovery achieved.",
+                    "companion_reaction": "A harrowing escape. Dual authorization must be hardcoded into banking portals so no single human can ever bypass it again.",
+                    "companion_mood": "detective",
+                    "next_phase_id": "phase_2"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "phase_2": {
+          "phase_id": "phase_2",
+          "title": "Phase 2: Illicit OAuth Grant & Inbox Forwarding",
+          "story": "The wire crisis is managed, but the attacker is still inside Evelyn's Google Workspace via the 'FinanceAutoSync' OAuth token. Cloud audit logs reveal the app created an automated inbox rule to forward all emails containing 'escrow', 'wire', or 'invoice' to an external anonymous address.",
+          "companion_tip": "OAuth token theft bypasses passwords and MFA! Revoke the token tenant-wide via Google Workspace Admin API and audit all mailbox forwarding rules.",
+          "companion_mood": "detective",
+          "choices": [
+            {
+              "id": "revoke_oauth_and_forwarding",
+              "title": "Tenant-Wide OAuth App Revocation & Purge Forwarding Rules",
+              "description": "Revoke the malicious OAuth grant across the entire domain, purge all hidden inbox forwarding rules, and restrict third-party app installations to admin-approved list only.",
+              "type": "good",
+              "effects": {
+                "audit_readiness": 15,
+                "company_trust": 10,
+                "budget": -2000
+              },
+              "consequence": "The attacker's persistent access is severed instantly. The malicious forwarding rule is deleted, and automated DLP alerts are deployed to block unauthorized email routing.",
+              "companion_reaction": "Brilliant log forensics! Attackers love OAuth persistence because users forget to audit third-party apps. The domain perimeter is sealed tight.",
+              "companion_mood": "happy",
+              "next_phase_id": "phase_3"
+            },
+            {
+              "id": "just_change_password",
+              "title": "Just Change Evelyn's Password and Move On",
+              "description": "Have Evelyn change her Google password and assume the hacker has been locked out.",
+              "type": "risky",
+              "effects": {
+                "audit_readiness": -10,
+                "company_trust": -10,
+                "budget": 0
+              },
+              "consequence": "A dangerous oversight! OAuth tokens remain valid even after password resets. The attacker continues monitoring the CFO's inbox for 48 hours until caught during audit review.",
+              "companion_reaction": "Risk Manager... OAuth refresh tokens do NOT expire upon password reset! You must revoke the token itself in Google Workspace Admin!",
+              "companion_mood": "alert",
+              "next_phase_id": "phase_3"
+            }
+          ]
+        },
+        "phase_3": {
+          "phase_id": "phase_3",
+          "title": "Phase 3: Dual-Custody & FIDO2 Policy",
+          "story": "The crisis is contained, but the Board of Directors wants permanent controls to ensure an executive phishing attack can never threaten the company again. What systemic control framework do you implement?",
+          "companion_tip": "Dual-custody workflows and FIDO2 WebAuthn hardware keys render credential phishing mathematically obsolete.",
+          "companion_mood": "happy",
+          "choices": [
+            {
+              "id": "implement_dual_custody_and_fido2",
+              "title": "Mandate Banking Dual-Custody & FIDO2 YubiKeys for All Execs",
+              "description": "Enforce strict bank dual-authorization for wires >$10k requiring physical hardware token approval from two separate officers, and issue FIDO2 YubiKeys company-wide.",
+              "type": "good",
+              "effects": {
+                "audit_readiness": 20,
+                "company_trust": 15,
+                "budget": -4000
+              },
+              "consequence": "The Board of Directors is thrilled! Dual custody eliminates single points of human failure, and hardware FIDO2 keys eliminate credential harvesting permanently.",
+              "companion_reaction": "Purr-fect defense-in-depth! Dual custody turns financial integrity into an unbreakable institutional standard.",
+              "companion_mood": "happy",
+              "next_phase_id": "conclusion"
+            },
+            {
+              "id": "mandatory_all_hands_quiz",
+              "title": "Send an All-Hands Email with a Mandatory 10-Question Quiz",
+              "description": "Blame human error, scold the team, and assign a mandatory 30-minute compliance video and quiz.",
+              "type": "risky",
+              "effects": {
+                "audit_readiness": 5,
+                "company_trust": -15,
+                "budget": -1000
+              },
+              "consequence": "Engineering and executive morale dips. Everyone clicks through the video on 2x speed without learning, while systemic financial vulnerabilities remain unaddressed.",
+              "companion_reaction": "Compliance theater at its finest! Scolding employees does not fix architecture. Build paved roads and technical dual custody instead!",
+              "companion_mood": "detective",
+              "next_phase_id": "conclusion"
+            }
+          ]
+        }
+      },
+      "conclusion": {
+        "success_threshold": {
+          "audit_readiness": 75,
+          "company_trust": 65,
+          "budget": 35000
+        },
+        "takeaway": "Real GRC Lesson: Business Email Compromise (BEC) cannot be solved by user awareness alone. Strict financial dual-custody controls, out-of-band verification, and OAuth app governance are required to protect company treasury."
+      }
+    },
+    {
+      "id": "shadow-ai-leak",
+      "chapter": 5,
+      "title": "The Shadow AI Data Leak",
+      "subtitle": "Confidential Patient Data in Public LLMs",
+      "category": "AI Governance & Healthcare Privacy",
+      "compliance_framework": "HIPAA Security Rule / ISO 42001 (AIMS) / SOC 2 Privacy Criteria",
+      "badge": "badge_soc2",
+      "difficulty": "Expert",
+      "summary": "Product engineers secretly connected a public generative AI endpoint to summarize hospital patient consultations. Proprietary patient data begins leaking in public model outputs.",
+      "briefing": {
+        "context": "SnoozeCloud recently signed a major pilot contract with a regional healthcare network to process patient intake forms. In a push to launch an AI summarization feature ahead of schedule, the growth engineering team secretly piped live patient intake notes\u2014including medical histories and Social Security numbers\u2014into a consumer LLM API ('QuickSummarize AI') using a personal credit card. A security researcher contacts you: confidential patient medical diagnoses are appearing in the public completions of QuickSummarize's model because the vendor trains directly on free API prompts!",
+        "urgency": "CRITICAL (HIPAA & Privacy Violation)",
+        "companion_intro": "Sweet mother of catnip! Shadow AI has struck our production pipeline! The growth team sent actual patient medical records into an unvetted LLM that trains on prompt data. We are facing catastrophic HIPAA penalties and immediate contract termination if we don't execute strict AI governance right now!",
+        "initial_state": {
+          "audit_readiness": 60,
+          "company_trust": 70,
+          "budget": 95000
+        }
+      },
+      "phases": {
+        "phase_1": {
+          "phase_id": "phase_1",
+          "title": "Phase 1: API Gateway Egress Lockdown",
+          "story": "Live consultation notes are still streaming to QuickSummarize AI's public endpoint. The hospital's CISO is requesting a scheduled security sync tomorrow morning. What is your immediate containment action?",
+          "companion_tip": "Sever the API connection at the proxy/gateway level immediately. Stop the data outflow before drafting remediation notices.",
+          "companion_mood": "alert",
+          "choices": [
+            {
+              "id": "block_egress_and_rotate",
+              "title": "Deploy API Gateway Egress Block & Revoke Rogue LLM Key",
+              "description": "Block all outbound network traffic to QuickSummarize AI in your API Gateway, flush pending queue buffers, and revoke the rogue developer API token.",
+              "type": "good",
+              "effects": {
+                "audit_readiness": 15,
+                "company_trust": 10,
+                "budget": -3000
+              },
+              "consequence": "The data outflow is completely halted in under 90 seconds. Zero further patient consultation notes leave SnoozeCloud's encrypted boundary.",
+              "companion_reaction": "Sharp claws, clean severance! Halting the egress pipeline at the network layer saved thousands of patients from unauthorized exposure.",
+              "companion_mood": "happy",
+              "next_phase_id": "phase_2"
+            },
+            {
+              "id": "threaten_ai_vendor_lawsuit",
+              "title": "Spend 8 Hours Drafting Threatening Legal Letters to the AI Vendor",
+              "description": "Wait for Corporate Counsel to review demand letters while leaving the production API integration streaming data live.",
+              "type": "bad",
+              "effects": {
+                "audit_readiness": -30,
+                "company_trust": -30,
+                "budget": -35000
+              },
+              "consequence": "A regulatory nightmare! Over the 8 hours, 3,200 additional patient records were sent to the AI vendor. The regional healthcare network discovers the leak and files a formal HIPAA violation notice!",
+              "companion_reaction": "Barnaby gasps in horror! You cannot litigate an active leak! Technical containment must always happen before legal drafting!",
+              "companion_mood": "alert",
+              "remediation": {
+                "trigger_reason": "Failure to sever active HIPAA data leakage before pursuing legal avenues.",
+                "situation": "Thousands of patient records were ingested into the model. Healthcare network triggers a Sev-0 audit inquiry.",
+                "remediation_choices": [
+                  {
+                    "id": "rem_retain_hipaa_counsel",
+                    "title": "Retain Specialized HIPAA Counsel & Formal OCR Breach Notification",
+                    "description": "Retain healthcare privacy legal specialists ($22,000), execute formal OCR self-disclosure, and offer credit monitoring to impacted patients.",
+                    "effects": {
+                      "audit_readiness": 10,
+                      "company_trust": -5,
+                      "budget": -22000
+                    },
+                    "consequence": "The Office for Civil Rights (OCR) notes your comprehensive self-reporting and corrective action, downgrading penalties to a resolution agreement.",
+                    "companion_reaction": "A narrow escape from maximum tier civil monetary penalties. Now let's fix the AI pipeline permanently.",
+                    "companion_mood": "detective",
+                    "next_phase_id": "phase_2"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "phase_2": {
+          "phase_id": "phase_2",
+          "title": "Phase 2: Model Weights & Zero-Retention DPA",
+          "story": "The connection is blocked, but patient data remains cached in QuickSummarize's training buffer. You need legal and technical guarantees that SnoozeCloud patient data is scrubbed from the vendor's infrastructure.",
+          "companion_tip": "Under HIPAA and ISO 42001, you must require written certification of data purge and execute an Enterprise Business Associate Agreement (BAA) with Zero Data Retention.",
+          "companion_mood": "detective",
+          "choices": [
+            {
+              "id": "secure_purge_and_enterprise_baa",
+              "title": "Obtain Certified Data Purge & Sign Enterprise BAA with Zero Retention",
+              "description": "Require QuickSummarize's leadership to execute a cryptographic data purge of training buffers and sign an Enterprise Business Associate Agreement guaranteeing zero data retention.",
+              "type": "good",
+              "effects": {
+                "audit_readiness": 15,
+                "company_trust": 15,
+                "budget": -6000
+              },
+              "consequence": "The vendor signs the HIPAA BAA and provides third-party verification that the training buffer was securely overwritten. The healthcare network partner is reassured by your rigorous remediation.",
+              "companion_reaction": "Superb contract governance! Turning a rogue tool into a legally bound, zero-retention enterprise integration is masterclass GRC.",
+              "companion_mood": "happy",
+              "next_phase_id": "phase_3"
+            },
+            {
+              "id": "trust_vendor_tweet",
+              "title": "Trust an Informal Email from Support saying 'It's Probably Deleted'",
+              "description": "Accept a brief informal email from a support rep without signing a formal Business Associate Agreement.",
+              "type": "risky",
+              "effects": {
+                "audit_readiness": -15,
+                "company_trust": -10,
+                "budget": 0
+              },
+              "consequence": "During the annual audit, Margaret asks for the signed BAA and data deletion certificate. You have nothing to show, resulting in a formal HIPAA non-compliance finding.",
+              "companion_reaction": "Informal support emails are not compliance evidence! HIPAA requires signed Business Associate Agreements (BAAs) with explicit breach notification clauses.",
+              "companion_mood": "alert",
+              "next_phase_id": "phase_3"
+            }
+          ]
+        },
+        "phase_3": {
+          "phase_id": "phase_3",
+          "title": "Phase 3: The Enterprise AI Gateway (ISO 42001)",
+          "story": "The Board acknowledges that AI summarization is vital for product success, but demands institutional guardrails so sensitive patient data can never be leaked again. How do you govern generative AI?",
+          "companion_tip": "Don't ban AI; build an internal AI Privacy Proxy with automated regex PII masking and synthetic tokenization.",
+          "companion_mood": "happy",
+          "choices": [
+            {
+              "id": "deploy_ai_privacy_proxy",
+              "title": "Deploy Internal AI Privacy Gateway with Automated PII Masking",
+              "description": "Implement an internal AI Gateway that enforces automated regex tokenization, strips healthcare identifiers (ePHI) prior to egress, and logs all AI queries for auditability.",
+              "type": "good",
+              "effects": {
+                "audit_readiness": 20,
+                "company_trust": 15,
+                "budget": -5000
+              },
+              "consequence": "Engineering loves the low-latency internal AI gateway, and the Healthcare CISO endorses SnoozeCloud as an industry benchmark for secure healthcare AI adoption!",
+              "companion_reaction": "Barnaby is purring contentedly! Automated PII masking with synthetic tokens is the gold standard of AI Governance (ISO 42001). Brilliant work, Risk Manager!",
+              "companion_mood": "happy",
+              "next_phase_id": "conclusion"
+            },
+            {
+              "id": "blanket_ban_on_ai",
+              "title": "Issue a Blanket Corporate Ban on All AI Tools",
+              "description": "Send an executive memo forbidding any engineer or product manager from ever using AI.",
+              "type": "risky",
+              "effects": {
+                "audit_readiness": 0,
+                "company_trust": -25,
+                "budget": -2000
+              },
+              "consequence": "Product velocity collapses. Competitors surpass SnoozeCloud, while engineers quietly route around the ban using their personal smartphones.",
+              "companion_reaction": "Banning technology never works! Paved roads, automated sanitization, and enterprise BAAs are the only sustainable path forward.",
+              "companion_mood": "detective",
+              "next_phase_id": "conclusion"
+            }
+          ]
+        }
+      },
+      "conclusion": {
+        "success_threshold": {
+          "audit_readiness": 75,
+          "company_trust": 65,
+          "budget": 35000
+        },
+        "takeaway": "Real GRC Lesson: Generative AI cannot be governed by draconian bans. Sustainable AI Governance (ISO 42001 / HIPAA) requires internal proxy gateways with automated PII masking, tokenization, and enterprise Zero Data Retention agreements."
+      }
+    }
+  ]
+}

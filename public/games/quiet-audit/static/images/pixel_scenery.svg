@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 240" width="100%" height="240" preserveAspectRatio="xMidYMax slice" shape-rendering="crispEdges">
+    <!-- Sky background / soft mist -->
+    <rect width="900" height="240" fill="#d2e3dc" />
+    
+    <!-- Floating pastel pixel clouds -->
+    <g fill="#EAF3EE" opacity="0.85">
+        <!-- Cloud 1 -->
+        <rect x="60" y="30" width="120" height="24" rx="4" />
+        <rect x="80" y="18" width="80" height="20" rx="4" />
+        <rect x="100" y="10" width="40" height="15" rx="3" />
+        
+        <!-- Cloud 2 center -->
+        <rect x="380" y="45" width="160" height="30" rx="4" />
+        <rect x="420" y="30" width="90" height="25" rx="4" />
+        <rect x="450" y="20" width="45" height="18" rx="3" />
+        
+        <!-- Cloud 3 right -->
+        <rect x="700" y="25" width="140" height="26" rx="4" />
+        <rect x="730" y="14" width="70" height="22" rx="4" />
+    </g>
+
+    <!-- Distant mountains / tree silhouettes -->
+    <g fill="#b5cec3" opacity="0.6">
+        <polygon points="40,160 90,80 140,160" />
+        <polygon points="110,160 160,95 210,160" />
+        <polygon points="260,160 320,110 380,160" />
+        <polygon points="620,160 680,90 740,160" />
+        <polygon points="720,160 780,75 840,160" />
+        <polygon points="800,160 850,105 900,160" />
+    </g>
+
+    <!-- Lake / Water base -->
+    <rect x="0" y="178" width="900" height="62" fill="#7ba89f" />
+    <rect x="0" y="178" width="900" height="4" fill="#658e85" />
+    
+    <!-- Water ripples (subtle pixel reflections) -->
+    <g fill="#a2c7bf">
+        <rect x="40" y="186" width="35" height="2" />
+        <rect x="120" y="194" width="50" height="2" />
+        <rect x="220" y="188" width="40" height="2" />
+        <rect x="310" y="202" width="65" height="2" />
+        <rect x="430" y="185" width="30" height="2" />
+        <rect x="490" y="196" width="55" height="2" />
+        <rect x="620" y="189" width="45" height="2" />
+        <rect x="740" y="200" width="70" height="2" />
+        <rect x="830" y="186" width="35" height="2" />
+        
+        <rect x="80" y="214" width="60" height="2" />
+        <rect x="260" y="222" width="45" height="2" />
+        <rect x="520" y="218" width="80" height="2" />
+        <rect x="690" y="224" width="50" height="2" />
+    </g>
+
+    <!-- Left Island / Ground bank -->
+    <!-- Dirt / brick retaining wall -->
+    <rect x="30" y="166" width="340" height="12" fill="#936d59" />
+    <rect x="30" y="174" width="340" height="4" fill="#6d4c3d" />
+    <!-- Lush grass top -->
+    <rect x="25" y="160" width="350" height="6" fill="#4d7260" />
+    <rect x="25" y="163" width="350" height="3" fill="#395849" />
+
+    <!-- Left Group of Pixel Pine Trees -->
+    <!-- Tree 1 Large -->
+    <g transform="translate(60, 35)">
+        <!-- Trunk -->
+        <rect x="44" y="90" width="12" height="35" fill="#5c3d2e" />
+        <!-- Foliage layers (dark to light) -->
+        <!-- Layer 1 (base) -->
+        <polygon points="0,110 50,40 100,110" fill="#3b594b" />
+        <polygon points="10,110 50,40 90,110" fill="#4d7260" />
+        <!-- Layer 2 (mid) -->
+        <polygon points="15,85 50,25 85,85" fill="#58816e" />
+        <polygon points="25,85 50,25 75,85" fill="#6a9682" />
+        <!-- Layer 3 (top) -->
+        <polygon points="30,55 50,10 70,55" fill="#7fa895" />
+        <polygon points="38,55 50,10 62,55" fill="#96bcaa" />
+    </g>
+
+    <!-- Tree 2 Medium Left -->
+    <g transform="translate(140, 55)">
+        <rect x="35" y="80" width="10" height="26" fill="#5c3d2e" />
+        <polygon points="0,90 40,30 80,90" fill="#3b594b" />
+        <polygon points="10,90 40,30 70,90" fill="#4d7260" />
+        <polygon points="15,68 40,18 65,68" fill="#58816e" />
+        <polygon points="25,44 40,8 55,44" fill="#7fa895" />
+    </g>
+
+    <!-- Tree 3 Small -->
+    <g transform="translate(210, 75)">
+        <rect x="26" y="65" width="8" height="20" fill="#5c3d2e" />
+        <polygon points="0,75 30,25 60,75" fill="#3b594b" />
+        <polygon points="8,75 30,25 52,75" fill="#4d7260" />
+        <polygon points="12,55 30,15 48,55" fill="#6a9682" />
+        <polygon points="18,36 30,5 42,36" fill="#96bcaa" />
+    </g>
+
+    <!-- Wooden Pier on Left Island -->
+    <rect x="290" y="162" width="65" height="6" fill="#a47551" />
+    <rect x="290" y="168" width="65" height="2" fill="#744e33" />
+    <!-- Pier pilings in water -->
+    <rect x="300" y="168" width="6" height="20" fill="#5c3d2e" />
+    <rect x="345" y="168" width="6" height="20" fill="#5c3d2e" />
+
+    <!-- Cute Pixel Mascot sitting on pier with fishing line -->
+    <g transform="translate(315, 140)">
+        <!-- Cozy Cat Silhouette / Bunny sitting -->
+        <!-- White body/ears -->
+        <rect x="4" y="2" width="3" height="8" fill="#ffffff" />
+        <rect x="9" y="2" width="3" height="8" fill="#ffffff" />
+        <rect x="3" y="8" width="10" height="9" fill="#ffffff" />
+        <!-- Red sweater -->
+        <rect x="1" y="15" width="14" height="10" fill="#e07a5f" />
+        <!-- Fishing rod (bamboo pole) -->
+        <line x1="12" y1="18" x2="36" y2="4" stroke="#5c3d2e" stroke-width="2" />
+        <!-- Fishing line down into water -->
+        <line x1="36" y1="4" x2="36" y2="44" stroke="#2F3E46" stroke-width="1" stroke-dasharray="2,2" />
+        <!-- Red/white bobber float -->
+        <circle cx="36" cy="42" r="3" fill="#e76f51" />
+        <circle cx="36" cy="40" r="1.5" fill="#ffffff" />
+    </g>
+
+    <!-- Right Island / Ground bank -->
+    <rect x="520" y="166" width="350" height="12" fill="#936d59" />
+    <rect x="520" y="174" width="350" height="4" fill="#6d4c3d" />
+    <rect x="515" y="160" width="360" height="6" fill="#4d7260" />
+    <rect x="515" y="163" width="360" height="3" fill="#395849" />
+
+    <!-- Right Group of Pixel Pine Trees -->
+    <g transform="translate(560, 65)">
+        <rect x="30" y="75" width="9" height="20" fill="#5c3d2e" />
+        <polygon points="0,80 35,20 70,80" fill="#3b594b" />
+        <polygon points="8,80 35,20 62,80" fill="#4d7260" />
+        <polygon points="12,58 35,12 58,58" fill="#6a9682" />
+        <polygon points="20,38 35,4 50,38" fill="#96bcaa" />
+    </g>
+
+    <g transform="translate(635, 40)">
+        <rect x="42" y="88" width="12" height="32" fill="#5c3d2e" />
+        <polygon points="0,105 48,32 96,105" fill="#3b594b" />
+        <polygon points="12,105 48,32 84,105" fill="#4d7260" />
+        <polygon points="18,80 48,20 78,80" fill="#58816e" />
+        <polygon points="28,52 48,8 68,52" fill="#7fa895" />
+    </g>
+
+    <g transform="translate(730, 48)">
+        <rect x="38" y="82" width="10" height="30" fill="#5c3d2e" />
+        <polygon points="0,96 44,25 88,96" fill="#3b594b" />
+        <polygon points="10,96 44,25 78,96" fill="#4d7260" />
+        <polygon points="16,72 44,15 72,72" fill="#6a9682" />
+        <polygon points="26,46 44,6 62,46" fill="#96bcaa" />
+    </g>
+
+    <!-- Little cozy pixel flower on the right shore -->
+    <g transform="translate(540, 150)">
+        <rect x="4" y="6" width="2" height="6" fill="#2d6a4f" />
+        <rect x="2" y="2" width="6" height="4" fill="#e07a5f" />
+        <rect x="4" y="3" width="2" height="2" fill="#ffd166" />
+    </g>
+</svg>
