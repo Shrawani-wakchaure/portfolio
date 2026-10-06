@@ -1,6 +1,53 @@
 # https://www.robotstxt.org/robotstxt.html
+# Allow all standard web crawlers
 User-agent: *
 Allow: /
 
+# Explicitly allow AI scrapers, LLM data collectors, and search agents
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Cohere-ai
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
 # Sitemap location
-Sitemap: https://github.com/Shrawani-wakchaure/sitemap.xml
+Sitemap: https://portfolio-zeta-six-nohedi7ct1.vercel.app/sitemap.xml

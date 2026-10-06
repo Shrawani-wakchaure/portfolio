@@ -14,6 +14,8 @@ import { SettingsProvider, useSettings } from '@/context/SettingsContext';
 import { CRTEffect } from '@/features/CRTEffect/CRTEffect';
 import { ReloadPrompt } from '@/components/pages/ReloadPrompt/ReloadPrompt';
 import { SkipNavigation, type AppMode } from '@/components/molecules/SkipNavigation/SkipNavigation';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import './App.css';
 
 // Lazy load heavy components
@@ -100,6 +102,8 @@ const App: React.FC = () => {
                     <SkipNavigation onNavigate={handleSkipNavigation} currentMode={systemState} />
                     <CRTEffectWrapper />
                     <ReloadPrompt />
+                    <Analytics />
+                    <SpeedInsights />
                     <main>
                       <Suspense fallback={<div className="app-loader"><LoadingSpinner /></div>}>
                         {systemState === 'game' && <Game onLoginRequest={handleGameComplete} onVideoGameRequest={handleVideoGameRequest} />}

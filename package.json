@@ -29,6 +29,8 @@
     ]
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "@xstate/react": "^6.0.0",
     "buffer": "^6.0.3",
     "gray-matter": "^4.0.3",
